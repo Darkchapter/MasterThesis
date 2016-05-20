@@ -1,0 +1,77 @@
+\input{Options}
+
+\evensidemargin = 41.54105pt
+\oddsidemargin  = 13.08827pt
+
+%%%%% TITLEPAGE %%%%%
+
+\startdate{01.09.2015}						% Bearbeitungsdatum
+\presentdate{\today}						% vorgelegt am %\today
+\degree{Master of Science}				% Abschlussgrad
+\program{Computer Science in Media (Master)}						% Studiengang
+\matrikel{249670}							% Matrikelnummer
+\firstpers{Prof.\ Dr.\ Ruxandra Lasowski}	% Erstbetreuer
+\secpers{Dr.\ Bernd Reinke}					% Zweitbetreuer
+
+\author{Sarah Häfele}
+\title{3D Reconstruction from High-speed Stereo Cameras}
+%\subtitle{Subtitle}
+\subject{Master-Thesis}
+\publishers{Hochschule Furtwangen\\Fakultät Digitale Medien}
+\date{\today}
+%\titlehead{titlehead}
+%\extratitle{extratitle}
+%\uppertitleback{uppertitleback}
+%\lowertitleback{lowertitleback}
+%\dedication{}
+
+\begin{document}
+
+\frontmatter
+%\makecover
+\maketitle					% Titelei
+\input{EidesErklaerung}		% Eidesstattliche Erklärung
+\clearpage
+\input{Abstract}			% Abstract
+\clearpage
+\input{Quote}				% Quote
+\tableofcontents			% Inhaltsverzeichnis
+
+\mainmatter
+\input{Introduction}
+\input{Background} 			% Background - History
+\input{Basics}				% Math. Principles	
+\input{RelatedWorks}		% State-of-the-Art
+\input{Komponenten} 		% Architecture of Implementation, used software/hardware
+\chapter{Implementation}\label{c:Implementation}	% Implemenation - code, results, ...
+\input{Calibration}			% Camera calibration
+\input{imageCorrection}
+\input{rectification}
+\input{ptcloud}
+%\input{triangulation}?
+%\input{closure} 			% results/ interpretation ...
+\input{refinement}			% next steps
+\input{meshExport}
+\chapter{Closure} 			% fazit and future work
+\input{Closure}
+%\input{Acknowledgement} 	% evtl Danksagung???
+
+
+\appendix
+%\renewcommand{\indexname}{Stichwortverzeichnis} % Index umbenennen
+\printindex					% Stichwortverzeichnis abbilden
+\addcontentsline{toc}{chapter}{\indexname}
+\listoffigures				% Abbildungsverzeichnis
+%\listoftables				% Tabellenverzeichnis
+%\lstlistoflistings			% Sourcecodeverzeichnis
+%\printbibliography[			% Literaturverzeichnis
+%	heading=bibintoc,
+%	title={Bibliography}]
+% Literaturverzeichnis
+	%\nocite{*} % muss später aufjedenfall raus
+	\bibliographystyle{alphadin} % for german type: alphadin
+	\bibliography{bibliography}
+	
+% to-do appendix:
+% include checkerboard	
+\end{document}

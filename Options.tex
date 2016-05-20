@@ -1,0 +1,351 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% Documentclass %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[fontsize=12pt,		% Font size
+			   toc=listof,			% List of... into table of contents % listofnumbered
+			   paper=A4,			% A4 paper
+			   headinclude=true,	% Include header into type area calculation
+			   footinclude=false,	% Don't include footer into type area calculation
+			   headsepline=true,	% Separating line between header and text
+			   footsepline=false,	% Separating line between footer and text
+			   DIV=calc,			% Auomatically calculate DIV
+			   %BCOR=15mm,			% Binding correction
+			  ]{scrbook}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Packages %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Encoding, fonts, etc...
+\usepackage[english]{babel}	% Language package
+\usepackage[utf8]{inputenc}			% Files are UTF-8 encoded
+\usepackage[T1]{fontenc}			% Font encoding
+\usepackage{lmodern}				% Scalable font
+\usepackage{microtype}				% Nicer typesetting
+\usepackage{relsize}				% Relative font size (for macros)
+\usepackage{setspace}				% Spacehandling
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{textcomp}				% Avoids conflicts between siunitx and microtype
+\usepackage{siunitx}				% Allow for german decimals, e.g. 1,344 instead of 1.344 + other stuff
+\usepackage{nicefrac}				% Schräggestellte Brüche...
+
+% Include MATLAB code (see http://www.howtotex.com/tips-tricks/how-to-include-matlab-code-in-latex-documents/)
+% the file mcode.sty must be placed in the same folder as main.tex 
+% add options between square brackets: bw for b/w printing, numbered for numbered lines, framed for framing the code,
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}	
+
+% Package and options for nice inspirational quotes - takes one argument - the author of the quote.
+\makeatletter
+%\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother			
+
+% Graphics, figures, tables...
+\usepackage{graphicx}				% Allow graphics
+\usepackage{xcolor}					% Allow colors
+\usepackage{booktabs}				% Nicer tables
+\usepackage{multirow} 				% Make multiple rows one big row in a table
+%\usepackage{longtable}
+\usepackage{tikz} 					% For generation of vector graphics
+\usepackage{pgfplots}				% For nice plots
+\usepackage{listings}				% Source code listings
+\usepackage[plain,					% Float wrapper for algorithms
+			chapter]{algorithm}
+\usepackage{algorithmic}			% Pseudo-code for algorithms
+%\usepackage{changepage} 			% Margin adjustments for big figures
+%\usepackage{rotating} 				% Rotate figures if needed
+%\usepackage{lscape}					% Landscape pages
+\usepackage{subcaption}				% Figures with multiple images, (a), (b) ...
+\usepackage{pdfpages}				% Inserting of full pages from pdf files
+\usepackage{framed}					% All kinds of framed stuff
+\usepackage{placeins}				% Lets you use barriers for figures
+%\usepackage{varioref}				% Stellt den Befehl \vref{} zur Verfügung --> für Hinweis auf Ziel des Verweises
+
+% Nice titlepage with more fields for scientific writeups
+%\usepackage{titlepage}
+
+% Glossary & index
+%\usepackage{glossaries}			% Can be used to create a nice glossary
+\usepackage{makeidx}				% Can be used to create a sorted index
+
+% Bibliography, citations...
+\usepackage{xkeyval}
+
+%\usepackage[backend=biber,
+%			bibstyle=alphabetic,
+%			citestyle=alphabetic,
+%			maxbibnames=4,
+%			%firstinits=true,
+%			hyperref=true,
+%			backref=true]{biblatex}
+%\usepackage{biblatex}			
+\usepackage{url}
+\usepackage[autostyle=tryonce]{csquotes}
+\usepackage[plainpages=false]{hyperref}
+%\usepackage[all]{hypcap}
+
+% other
+\usepackage{ifthen}					% Allows conditional statements
+\usepackage{blindtext}				% Blindtext for testing purposes
+\usepackage{scrhack}				% Hacks that allow a better integration of non-koma-scripts with komascript
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Config %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% babel
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%% spacing %%%%%%%%%%%%%%%%%%%%%
+%\onehalfspacing
+
+% biblatex
+%\addbibresource{bibliography.bib}	% Add bibliography file
+%\DefineBibliographyStrings{ngerman}	% et al. instead of u.a.
+%	{andothers=
+%	{et\addabbrvspace al\adddot}}
+
+% titlepage
+%\TitlePageStyle[]{KOMAScript}
+
+% TikZ
+%\usetikzlibrary{shapes}			% Shapes for Tikz
+\usetikzlibrary{plotmarks}			% Plot marks for Tikz
+\usetikzlibrary{calc}				% For general calculations
+\usetikzlibrary{intersections}		% Can calculate intersections in tikz
+\usetikzlibrary{patterns}			% For bar plots etc.
+\usetikzlibrary{arrows}				% For arrow heads
+\usetikzlibrary{arrows.meta}		% ... seems like I need this as well?
+\newlength\figureheight 			% Variables for figures exported with matlab2tikz
+\newlength\figurewidth
+\newcommand\figurescale{1}
+
+% pgfPlots
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false}
+\pgfkeys{/pgf/number format/.cd ,use comma ,set thousands separator={ }}
+% The following is a hack to make pgfplots load files from directories other than the current one
+\makeatletter
+\def\pgfplotstableread@openfile{%
+    \def\pgfplotstable@loc@TMPa{\pgfutil@in@{ }}%
+    \expandafter\pgfplotstable@loc@TMPa\expandafter{\pgfplotstableread@filename}%
+    \ifpgfutil@in@
+        \t@pgfplots@toka=\expandafter{\pgfplotstableread@filename}%
+        \edef\pgfplotstableread@filename{\pgfplots@dquote\the\t@pgfplots@toka\pgfplots@dquote}%
+    \fi
+    \let\pgfplotstableread@old@crcr=\\%
+    \def\\{\string\\}% just to make sure we don't try to open inline table data...
+    \openin\r@pgfplots@reada=\csname pgfk@/pgfplots/table file path\endcsname\pgfplotstableread@filename.tex
+    \ifeof\r@pgfplots@reada
+        \openin\r@pgfplots@reada=\csname pgfk@/pgfplots/table file path\endcsname\pgfplotstableread@filename\relax
+    \else
+        \pgfplots@warning{%
+            You requested to open table '\pgfplotstableread@filename', but there is also a '\pgfplotstableread@filename.tex'. 
+            TeX will automatically append the suffix '.tex', so I will now open '\pgfplotstableread@filename.tex'.
+            Please make sure you don't accidentally load TeX files - this may produce unrecoverable errors.}%
+        \closein\r@pgfplots@reada
+        \openin\r@pgfplots@reada=\pgfplotstableread@filename\relax
+    \fi
+    %
+    \ifeof\r@pgfplots@reada
+        \pgfplotsthrow{no such table file}{\pgfplots@loc@TMPa}{\pgfplotstableread@filename}{Could not read table file '\csname pgfk@/pgfplots/table file path\endcsname\pgfplotstableread@filename'. In case you intended to provide inline data: maybe TeX screwed up your end-of-lines? Try `row sep=crcr' and terminate your lines with `\string\\' (refer to the pgfplotstable manual for details)}\pgfeov%
+        \global\let\pgfplotstable@colnames@glob=\pgfplots@loc@TMPa
+        \def\pgfplotstableread@ready{0}%
+    \fi
+    \pgfplots@logfileopen{\pgfplotstableread@filename}%
+    \let\\=\pgfplotstableread@old@crcr
+}
+\makeatother
+\pgfplotsset{table file path/.initial = {./}}
+
+% siunitx
+\sisetup{locale = US}
+
+% listings
+\lstset{ %
+backgroundcolor=\color{white}, % background color
+basicstyle=\footnotesize\ttfamily,% code font size
+breakatwhitespace=false, % automatic breaklines only at whitspaces?
+breaklines=true, % automatic breaklines
+captionpos=b, % caption position
+%commentstyle=\color{green}, % comment style
+deletekeywords={}, % delete keywords from language
+escapeinside={(*@}{@*)}, % LaTeX will be evaluated inside (*@ \code{} @*)
+extendedchars=true, % Non-ASCII characters
+frame=single, % frame around code
+keepspaces=true, % keep spaces (i.e. indentation), might need columns = flexible
+%columns=flexible, % set characters in columns or freely?
+%keywordstyle=\color{blue}, % keyword style
+language=C++, % programming language
+morekeywords={*,}, % add keywords
+numbers=left, % line-numbers (none, left, right)
+numbersep=5pt, % Distance line numbers <-> code
+numberstyle=\tiny\color{gray}, % style for line-numbers
+rulecolor=\color{black}, % frame color
+showspaces=false, % show spaces by using special underscores?
+showstringspaces=false, % underline spaces within strings only
+showtabs=false, % show tabs within strings adding particular underscores
+stepnumber=1, % step between drawn line-numbers
+%stringstyle=\color{mauve}, % string literal style
+tabsize=4, % tabs translate to some amount of spaces
+title=\lstname	% Show filename
+}
+
+\lstdefinelanguage{c++11}{
+	language=C++,				% Derive from c++
+	basicstyle=\small,			% Basic font used for code
+	numbers=left,				% Shows line numbers on the left side
+	numberstyle=\tiny,			% Line numbers are smaller than code
+	frame=tb,					% Line on top and bottom
+	columns=fullflexible,		% Columns are flexible, so no "typewriter look"
+	showstringspaces=false,		% Show spaces in strings?
+	%tabsize=2,					% Translate tabs into whitespaces
+	morekeywords={				% Add C++11 keywords
+		alignas,
+		alignof,
+		char16_t,
+		char32_t,
+		constexpr,
+		decltype,
+		noexcept,
+		nullptr,
+		static_assert,
+		thread_local,
+		override,
+		final,
+	}
+}
+\lstdefinelanguage{dos}{
+	language=bash,				% Derive from bash
+	basicstyle=\ttfamily\small,	% Typewriter font
+	frame=tblr,					% Line on top and bottom
+	showstringspaces=false,		% Show spaces in strings?
+	breaklines=true,			% Automatically wrap lines
+}
+\lstset{
+	belowcaptionskip=1em,
+}
+%\renewcommand{\lstlistlistingname}{Quelltextverzeichnis}
+
+% Algorithms
+%\floatname{algorithm}{Algorithmus}
+%\renewcommand{\listalgorithmname}{Algorithmenverzeichnis}
+
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
+\renewcommand{\algorithmicensure}{\textbf{Ausgabe:}}
+\renewcommand{\algorithmicend}{\textbf{end}}
+\renewcommand{\algorithmicif}{\textbf{if}}
+\renewcommand{\algorithmicthen}{\textbf{then}}
+\renewcommand{\algorithmicelse}{\textbf{else}}
+\renewcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+\renewcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+\renewcommand{\algorithmicfor}{\textbf{for}}
+\renewcommand{\algorithmicforall}{\textbf{for all}}
+\renewcommand{\algorithmicdo}{\textbf{do}}
+\renewcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+\renewcommand{\algorithmicwhile}{\textbf{while}}
+\renewcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+\renewcommand{\algorithmicloop}{\textbf{loop}}
+\renewcommand{\algorithmicendloop}{\algorithmicend\ \algorithmicloop}
+\renewcommand{\algorithmicrepeat}{\textbf{repeat}}
+\renewcommand{\algorithmicuntil}{\textbf{until}}
+\renewcommand{\algorithmicprint}{\textbf{print}}
+\renewcommand{\algorithmicreturn}{\textbf{return}}
+\renewcommand{\algorithmictrue}{\textbf{true}}
+\renewcommand{\algorithmicfalse}{\textbf{false}}
+\renewcommand{\algorithmiccomment}[1]{\{#1\}}
+
+\newcommand{\variable}[1]{\textit{#1}}
+
+% Index
+\makeindex 					% Stichwortverzeichnis
+
+% Todo Notes 
+\newcommand\todo[1]{\textcolor{red}{\textbf{#1}}}
+
+% C# und C++
+\newcommand{\CS}{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\relsize{-2}{\textbf{\#}}}~}
+\newcommand{\CC}{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny +}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny +}~}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Declarations %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Colors
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{middlegray}{gray}{0.75}
+
+% Hyphenation
+\hyphenation{Haupt-kom-po-nen-ten-a-na-ly-se Vek-tor-raum Trans-po-nier-ten Re-dun-dan-zen Near-est Neigh-bor}
+
+% Math
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\spur}{\mathrm{Spur}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathSymbol{\mlq}{\mathord}{operators}{``}	% \mlq produces a left quote in math mode
+\DeclareMathSymbol{\mrq}{\mathord}{operators}{`'}	% \mrq produces a right quote in math mode
+
+% Text stuff
+%\newcommand{\highlight}[1]{\emph{#1}} % This is stupid <.<
+
+% Sectioning levels
+\newcommand{\sect}[2]{
+	\ifthenelse{#1=1}{\chapter{#2}}{
+	\ifthenelse{#1=2}{\section{#2}}{
+	\ifthenelse{#1=3}{\subsection{#2}}
+					 {\subsubsection{#2}}}}
+}
+
+% "Note" boxes
+\newenvironment{MyLeftBar}{%
+	\def\FrameCommand##1{\textcolor{middlegray}{\vrule width 2pt} \hspace{9pt}##1}% 
+	\MakeFramed {\advance\hsize-\width \FrameRestore}}% 
+	{\endMakeFramed} 
+\newcommand*{\note}[1]{\begin{MyLeftBar}\hspace{-25pt}\colorbox{middlegray}{\textbf{\textcolor{white}{Note}}}{\indent #1}\end{MyLeftBar}} 
+
+% Macros
+\newcommand{\plus}{\raisebox{.2\height}{\scalebox{.8}{+}}}
+\newcommand{\minus}{\raisebox{.2\height}{\scalebox{.8}{-}}}
+\def\C++{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{++}}}}
+\newcommand{\sic}{[sic!]}
+\newcommand{\bigO}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+\newcommand{\ICP}{I\-ter\-a\-tive-Clo\-sest-Point}
+
+% Full References
+%\newcommand*{\fullref}[1]{\hyperref[{#1}]{\ref*{#1} \nameref*{#1}}} % One single link
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Title Page %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\makeatletter
+ 
+\def\startdate#1{\gdef\@startdate{#1}}
+\def\presentdate#1{\gdef\@presentdate{#1}}
+\def\degree#1{\gdef\@degree{#1}}
+\def\program#1{\gdef\@program{#1}}
+\def\matrikel#1{\gdef\@matrikel{#1}}
+\def\firstpers#1{\gdef\@firstpers{#1}}
+\def\secpers#1{\gdef\@secpers{#1}}
+ 
+\newcommand{\makecover}{%
+\immediate\write18{lualatex -interaction=nonstopmode "\def\string\startdate{\@startdate}\def\string\presentdate{\unexpanded\expandafter{\@presentdate}}\def\string\degree{\unexpanded\expandafter{\@degree}}\def\string\program{\unexpanded\expandafter{\@program}}\def\string\author{\unexpanded\expandafter{\@author}}\def\string\matrikel{\@matrikel}\def\string\title{\unexpanded\expandafter{\@title}}\def\string\firstpers{\unexpanded\expandafter{\@firstpers}}\def\string\secpers{\unexpanded\expandafter{\@secpers}}\string\input{Deckblatt}"}
+\includepdf{Deckblatt.pdf}}
+ 
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Recalculate type area %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\recalctypearea

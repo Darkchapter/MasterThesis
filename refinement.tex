@@ -1,0 +1,34 @@
+\section{Refinement}\label{sec:refinement}
+
+\begin{itemize}
+\item next to correcting the original input images, refining the output data set (the point cloud) to get out noise, but how?
+\item different approaches and a test of each:
+  \begin{itemize}
+   \item mask (--> hardcoding --> bad!)
+   \item Bundle Adjustment
+   \item pcdenoise
+   \end{itemize}
+\end{itemize}
+
+
+\subsection{Bundle adjustment}
+Matlab provides a built-in method that refines camera poses and 3D points: the \textit{bundleAdjustment}\footnote{See a full description of the method at \url{mathworks.com/help/vision/ref/bundleadjustment.html}, 2016-05-03.}. In the following the bundle adjustment \index{Bundle adjustment} shall be used to refine 3D points so that reprojection errors get minimized. At this point it should be mentioned that the code for this method is rather sparsely documented, which could make the usage of the built-in method tedious. However, there are a lot more solutions to choose from provided by the community.
+
+--> maybe use \url{https://github.com/tikroeger/BA_Matlab}
+\todo{mathematical explanation what it is}
+
+%\begin{lstlisting}
+
+%\end{lstlisting}
+
+
+\subsection{pcdenoise}
+\todo{check real name of method}
+
+\subsection{Pointcloud filters}
+\url{http://docs.pointclouds.org/1.7.0/group__filters.html}
+\begin{itemize}
+\item filter outliers from noisy data (--> bundle adjustment), 
+\item segment relevant parts of a scene, 
+\end{itemize}
+
