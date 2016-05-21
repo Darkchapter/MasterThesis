@@ -1,4 +1,4 @@
-\chapter{Components} \label{c:Components}
+
 \section{Hardware} \label{sec:Hardware}
 \todo{cams}
 
@@ -9,13 +9,13 @@
 timebench software (\url{http://www.optronis.com/en/about-us/innovation.html})
 
 \subsection{MATLAB} \label{ssec:Matlab}
-For the camera calibration as well as for the 3D reconstruction, the commercial platform \textit{MATLAB}\index{MATLAB} by \textit{MathWorks} was used. MATLAB is a software that is specialized in solving mathematical problems (especially matrix operations) and visualizing data. The MATLAB programming language is matrix-based and implements object-oriented concepts like classes and inheritance. The program comes with a large library of built-in toolboxes, which can be used to address many different engineering and scientific problems. Another of MATLAB's strengths lies with its active community, which provides costum scripts and discusses recent developments in the scientific field (\cite{MathWorks.2016}).
+For the camera calibration as well as for the 3-D reconstruction, the commercial platform \textit{MATLAB}\index{MATLAB} by \textit{MathWorks} was used. MATLAB is a software that is specialized in solving mathematical problems (especially matrix operations) and visualizing data. The MATLAB programming language is matrix-based and implements object-oriented concepts like classes and inheritance. The program comes with a large library of built-in toolboxes, which can be used to address many different engineering and scientific problems. Another of MATLAB's strengths lies with its active community, which provides costum scripts and discusses recent developments in the scientific field (\cite{MathWorks.2016}).
 
 A large portion of the MATLAB community is involved in researching the algorithms that drive the field of multiple view geometry in computer vision (see \autoref{c:relatedWorks} for examples). MathWorks also implements new content on this topic regularly. 
 
 The reasons stated above led to the usage of MATLAB as the development environment of choice in this thesis. Initially MATLAB R2015b was used, but due to newly added functions for data refinement (see \autoref{sec:refinement}) the software needed to be updated to MATLAB R2016a.
    
-The 3D reconstruction was programmed and organized in one MATLAB script file. To get the needed stereo parameters an built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Implementation}.
+The 3-D reconstruction was programmed and organized in one MATLAB script file. To get the needed stereo parameters an built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Implementation}.
 
 One of the biggest problems with MATLAB is its documentation. Although it often provides good examples and a lot of details, it is not explicit enough in other important areas. Certain algorithms used in the built-in functions are often times not explained, making it difficult to find mistakes when the data output is unexpected\footnote{This \enquote{blackbox} problem with which you can not see how the output is created may be owed to the fact that MATLAB is (and is used as) a commercial software.}. The toolboxes often lack information as well, for example an explanation of how the pipelines work, which coordinate system is used, etc. These problems restrict the programmer quite a bit and force one to either find a work around or use third party programs. More details on the encountered problems can be found in the following chapters (especially \autoref{sec:Calibration} and \todo{add all chapters with big probs here}).
 

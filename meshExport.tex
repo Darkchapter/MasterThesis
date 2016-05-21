@@ -1,11 +1,11 @@
-\section{Mesh Export}
+\section{Mesh export}
 	
 \begin{itemize}
-\item to be able to reuse and rework the 3d model one has to export the point cloud as a mesh/ surface
-\item use pcwrite \footnote{The description of the method can be found at \url{http://mathworks.com/help/vision/ref/pcwrite.html}} to write 3d point cloud into PLY file
+\item to be able to reuse and rework the 3-D model one has to export the point cloud as a mesh/ surface
+\item use pcwrite \footnote{The description of the method can be found at \url{http://mathworks.com/help/vision/ref/pcwrite.html}} to write 3-D point cloud into PLY file
 \item pcwrite(ptCloud,filename,'PLYFormat',format) 
 	\begin{itemize}
-	\item matlab function to write 3D point cloud to PLY file
+	\item matlab function to write 3-D point cloud to PLY file
 	\item ptCloud: use output data
 	\item filename: specify a filename
 	\item PLY format: specified as the comma-separated pair consisting of the string format and the string 'ascii' or 'binary'. Use the binary format to save space when storing the point cloud file on disk.
@@ -13,15 +13,15 @@
 
 
 \item used software: meshlab \cite{Meshlab.2016}
-\item MeshLab is an open source, portable, and extensible system for the processing and editing of unstructured 3D triangular meshes.
+\item MeshLab is an open source, portable, and extensible system for the processing and editing of unstructured 3-D triangular meshes.
 \item open source
 \item amongst others it can import the following file formats: PLY, STL, OFF, OBJ, 3DS, COLLADA, PTX, V3D, PTS, APTS, XYZ, GTS, TRI, ASC, X3D, X3DV, VRML, ALN
 \item meshlab example project need to be included, found in meshlab folder
-\item Meshlabs measuring tool: measure objects to check sizes - gives the exact distance in units of the mesh --> or what units? not documented grrrrrrrr --> talk about problems with units in 3d
+\item Meshlabs measuring tool: measure objects to check sizes - gives the exact distance in units of the mesh --> or what units? not documented grrrrrrrr --> talk about problems with units in 3-D
 \end{itemize}
 
 
-The tool was developed with the support of the 3D-CoForm project \footnote{The 3D-CoForm project aimed to establish a universal state-of-the-art in 3D-digitisation and 3D-documentation. The research reports and other information can be found at \url{http://www.3d-coform.eu/}.}
+The tool was developed with the support of the 3D-CoForm project \footnote{The 3D-CoForm project aimed to establish a universal state-of-the-art in 3-D-digitisation and 3-D-documentation. The research reports and other information can be found at \url{http://www.3d-coform.eu/}.}
 
 \begin{lstlisting}
 pcwrite(ptCloud,'stillOwl','PLYFormat','binary');
@@ -33,6 +33,6 @@ pcwrite(ptCloud,'stillOwl','PLYFormat','binary');
 
 That sort of explains it. You really need to think in just 'units' and NOT  a 'unit of measure' as it will trip you up in the future otherwise.
 
-Anyway - Its a very important distinction - Units in 3D Space have *no* correlation to Inches or millimetres or any other 'unit of measure' - the file simply details the number of 'units'...
+Anyway - Its a very important distinction - Units in 3-D Space have *no* correlation to Inches or millimetres or any other 'unit of measure' - the file simply details the number of 'units'...
 
 \todo{Points to Mesh}

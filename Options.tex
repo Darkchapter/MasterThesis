@@ -80,13 +80,14 @@
 % Bibliography, citations...
 \usepackage{xkeyval}
 
-%\usepackage[backend=biber,
-%			bibstyle=alphabetic,
-%			citestyle=alphabetic,
-%			maxbibnames=4,
+\usepackage[backend=biber,
+			bibstyle=alphabetic,
+			citestyle=alphabetic,
+			maxbibnames=4,
 %			%firstinits=true,
-%			hyperref=true,
-%			backref=true]{biblatex}
+			giveninits=true,
+			hyperref=true,
+			backref=true]{biblatex}
 %\usepackage{biblatex}			
 \usepackage{url}
 \usepackage[autostyle=tryonce]{csquotes}
@@ -106,10 +107,11 @@
 \selectlanguage{english}
 
 %%%%%%%%%%%%%%%%%%% spacing %%%%%%%%%%%%%%%%%%%%%
-%\onehalfspacing
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%% /spacing %%%%%%%%%%%%%%%%%%%%%
 
 % biblatex
-%\addbibresource{bibliography.bib}	% Add bibliography file
+\addbibresource{bibliography.bib}	% Add bibliography file
 %\DefineBibliographyStrings{ngerman}	% et al. instead of u.a.
 %	{andothers=
 %	{et\addabbrvspace al\adddot}}

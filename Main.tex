@@ -14,7 +14,7 @@
 \secpers{Dr.\ Bernd Reinke}					% Zweitbetreuer
 
 \author{Sarah Häfele}
-\title{3D Reconstruction from High-speed Stereo Cameras}
+\title{3-D Reconstruction from High-speed Stereo Cameras}
 %\subtitle{Subtitle}
 \subject{Master-Thesis}
 \publishers{Hochschule Furtwangen\\Fakultät Digitale Medien}
@@ -38,11 +38,22 @@
 \tableofcontents			% Inhaltsverzeichnis
 
 \mainmatter
-\input{Introduction}
-\input{Background} 			% Background - History
-\input{Basics}				% Math. Principles	
+\chapter{Introduction}\label{c:Intro}
+\input{Introduction}		% Preface & about this thesis
+
+\chapter{Background}\label{c:Background}
+\input{Definitions} 		% Overall definitions & History
+\input{History}				% Historical Background
+			
+
+\chapter{Mathematical Principles}\label{c:Math}
+\input{Math}				% Math. Principles
+
+\chapter{Related Works}\label{c:relatedWorks}
 \input{RelatedWorks}		% State-of-the-Art
+\chapter{Components} \label{c:Components}				% 	
 \input{Komponenten} 		% Architecture of Implementation, used software/hardware
+
 \chapter{Implementation}\label{c:Implementation}	% Implemenation - code, results, ...
 \input{Calibration}			% Camera calibration
 \input{imageCorrection}
@@ -52,8 +63,9 @@
 %\input{closure} 			% results/ interpretation ...
 \input{refinement}			% next steps
 \input{meshExport}
-\chapter{Closure} 			% fazit and future work
-\input{Closure}
+
+\chapter{Closure} \label{c:Closure}			
+\input{Closure} 			% fazit and future work
 %\input{Acknowledgement} 	% evtl Danksagung???
 
 
@@ -64,13 +76,13 @@
 \listoffigures				% Abbildungsverzeichnis
 %\listoftables				% Tabellenverzeichnis
 %\lstlistoflistings			% Sourcecodeverzeichnis
-%\printbibliography[			% Literaturverzeichnis
-%	heading=bibintoc,
-%	title={Bibliography}]
+\printbibliography[			% Literaturverzeichnis
+	heading=bibintoc,
+	title={Bibliography}]
 % Literaturverzeichnis
 	%\nocite{*} % muss später aufjedenfall raus
-	\bibliographystyle{alphadin} % for german type: alphadin
-	\bibliography{bibliography}
+	%\bibliographystyle{alphadin} % for german type: alphadin
+	%\bibliography{bibliography}
 	
 % to-do appendix:
 % include checkerboard	
