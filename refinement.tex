@@ -34,3 +34,10 @@ Matlab provides a built-in method that refines camera poses and 3D points: the \
 \item segment relevant parts of a scene, 
 \end{itemize}
 
+\subsection{Filter out distances}
+- point cloud obj has x,y,z limits but they are read-only -.-
+--> lets put custom box around it
+- with the help of axis aligned bounding boxes (cite maybe gregory?)
+- we only need 2 points for this, not min. 4 edges like in other bounding boxes
+- we need 2 two points as vectors
+- 
