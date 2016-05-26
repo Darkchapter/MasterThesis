@@ -6,10 +6,11 @@ The following sections shall introduce the mathematical backgrounds of some of t
 %------------------------------
 Three-dimensional shapes can be described with geometrical primitives, such as points, lines and planes. A virtual world is created out of such 3-D objects, which all have a position, orientation and scale. Typically, geometry needs to start with a \textit{point} (\cite[p.29 et seqq.]{Szeliski.2011} and \cite[p.166 et seqq.]{Gregory.2014}).
 
-\subsection{2-D, 3-D points and lines}
-A 2-D point\index{2-D point} can represent a pixel coordinate in an image and can be described as an ordered pair of real numbers 
+\subsection{2-D and 3-D points}\label{ssec:Points}
+\index{Points}
+A 2-D point\index{Points!2-D points} can represent a pixel coordinate in an image and can be described as an ordered pair of real numbers 
 \begin{equation}
-\mathbf{x} = (x,y)\in
+\mathbf{x} = (x,y)\in R^2
 \end{equation}
 
 or alternatively, 
@@ -17,21 +18,38 @@ or alternatively,
 \mathbf{x}=
   \begin{bmatrix}
    x \\
-   y.
+   y
   \end{bmatrix}
 \end{equation}
 
-(\cite[p.30]{Szeliski.2011} and \cite[p.2]{Hartley.2011}) 
---> homogenous in hartley....
---> 3-D point plus line
+Points have \textit{equivalence classes}\index{Points!equivalence classes}, which are represented by adding an extra coordinate, creating a coordinate triple. This means that $x = (x,y,1)$, $x = (2x,2y,2)$ and $x=(kx,ky,k)$, for any $k\neq0$, represent the same point, they only differ by a multiple. By dividing through $k$ the original coordinates are retrieved. These coordinate triples are called \textit{homogeneous coordinates}\index{Homogeneous coordinates}. The equation $x = (x,y,0)$ represents a \textit{point at infinity}\index{Points!Point at infinity}, since the coordinate points can not be divided by $0$. Those points form a line in the two-dimensional projective space, which is called the \textit{line at infinity}\index{Line at infinity} (\cite[p.30]{Szeliski.2011} and \cite[p.2]{Hartley.2011}).
+
+The same principles apply for points in three-dimensional coordinate systems. Thus, a 3-D point \index{Points!3-D points} can be represented using inhomogeneous coordinates:
+\begin{equation}
+\mathbf{x} = (x,y,z)\in R^3
+\end{equation}  
+
+or alternatively using homogeneous coordinates by adding another coordinate:
+\begin{equation}
+\mathbf{x} = (x,y,z,w)\in P^3
+\end{equation}  
+
+Note that the \textit{points at infinity} in 3-D space form the \textit{plane at infinity}\index{Plane at infinity} (\cite[p.31]{Szeliski.2011} and \cite[p.2]{Hartley.2011}).
 
 \subsection{Coordinate Systems}
-\index{Coordinate systems}
-Computer graphics works with a huge variety of coordinate systems to represent three-dimensional  
---> cartesian in gregory
+\subsubsection{Types of Coordinate Systems}
+As stated above, a point is represented with its coordinates in a $n$-dimensional space, whereas in computer vision $n$ usually has the value $2$ or $3$. Hence, coordinate systems\index{Coordinate systems} play an important role in computer vision tools. While the \textit{Cartesian coordinate system} is the most commonly used coordinate system in the field, it is by far not the only one. The following list shall introduce three important coordinate systems, which use different concepts: (\cite[p.166 et seq.]{Gregory.2014}.  
+\begin{itemize}
+\item \textit{Cartesian coordinate systems}\index{Coordinate systems!Cartesian coordinate system}: Two or three fixed perpendicular axis which form the 2-D or 3-D space. The points are represented by $(P_x,P_y)$ or $(P_x,P_y,P_z)$ and an illustration can be seen in \autoref{fig:CoordinateSys}.  
+\item \textit{Cylindrical coordinate systems}\index{Coordinate systems!Cylindrical coordinate system}: A system with a vertical axis $h$, a radial axis $r$ and the yaw angle $\Theta$. The points are represented by $(P_h,P_r,P_\Theta)$
+\item \textit{Spherical coordinate systems}\index{Coordinate systems!Spherical coordinate system}: A system specified by the radial distance $r$ of a point from the origin, the yaw angle $\Theta$ and a pitch angle $\phi$. Thus, a point is represented by $(P_r,P_\phi,P_\Theta)$.
+\end{itemize}
 
-\subsubsection{left-handed vs. right-handed}
+This thesis is concentrating on points represented in the Cartesian coordinate system, since it is the mostly used system in computer graphics and computer vision environments.
+
+\subsubsection{Left-Handed vs. Right-Handed Orientation}
 \index{Coordinate systems!left-handed}\index{Coordinate systems!right-handed}
+Three-dimensional Cartesian coordinate systems can be arranged in two different directions: right-handed and left-handed. They differ only in the orientation of one of the three axis, for example the $z$-axis points to the front in a right-handed, and to the rear in a left-handed coordinate system (as illustrated in \autoref{fig:CoordinateSys}). Often the $y$-axis points downwards, defining a left-handed coordinate system. The resulting point representations in both systems are not much different from each other: by negating the $y$-coordinate of the points the coordinate system becomes right-handed. Also it is important to note that the actual position of the point in space does not change, it is only the interpretation of it which gets defined by this orientation. It is up to the programmer to chose a system and it is important to be consistent throughout one environment (\cite[p.164 et seq.]{Hartley.2011} and \cite[p.167 et seq.]{Gregory.2014}). 
 
 \begin{figure}[htbp]
 		\centering
@@ -40,20 +58,57 @@ Computer graphics works with a huge variety of coordinate systems to represent t
 		\label{fig:CoordinateSys}
 \end{figure}
 
-\subsection{Camera Models}
+\subsection{3-D to 2-D Projections}
+To display a model of the 3-D world on a computer screen one has to map the 3-D objects to a 2-D representation. In this process the 3-D structure gets projected on a two-dimensional image, losing one dimension. Thus, there are two coordinate systems involved: the world-space\index{Coordinate systems!World-space} and the 2-D image coordinates. Their relationship to each other can be modeled with the help of a \textit{central projection}\index{Projection!Central projection}: a ray from a world point $X_i$ passes through the fixed \textit{center of projection}\index{Projection!Center of projection} $C$ and intersects with the \textit{image plane} (as seen in \autoref{fig:Projection}). This intersection $x_i$ represents the image of the world point $X_i$ (\cite[p.6 et seq.]{Hartley.2011}).
+
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{figures/Projection}
+		\caption[Projection of the space points $X_i$ to the image plane through $C$]{Projection of the space points $X_i$ to the image plane through the center of projection $C$ (\textit{source: own illustration based on} \cite[p.8]{Hartley.2011}).}
+		\label{fig:Projection}
+\end{figure}
+
+This model can be seen as a simple camera, in which the center of projection is the lens of the camera. The mapping from the projective spaces $P^3$ to $P^2$ may be represented by a $3\times4$ matrix $P$, which takes the homogeneous coordinates $(X,Y,Z,T)^T$ of a point in $P^3$ and the center of projection into account. The most general imaging projection is known as the \textit{camera matrix}\index{Camera matrix} $P$. Hence, the projection of a world point (in its homogeneous coordinates) with this simple camera concept to a two-dimensional image point can be expressed as (\cite[p.7]{Hartley.2011} and \cite[p.42 et seqq.]{Szeliski.2011}):
+
+\begin{equation} 
+ \begin{pmatrix}
+  x \\
+  y \\
+  w
+ \end{pmatrix} = P_{3\times4}
+ \begin{pmatrix}
+  X \\
+  Y \\
+  Z \\
+  T
+ \end{pmatrix}
+\end{equation}
+
+\subsection{The projective Camera}
+intro:  \cite[p.158]{Hartley.2011}: 
 - projection from 3-D scene space onto a 2-D image plane
--camera mapping is represented by a matrix
+- camera mapping is represented by a matrix
+
+how? \todo{matrix operations}
+- Parallel projection: \cite[p.170]{Hartley.2011}
+- orthographic projection: \cite[p.171]{Hartley.2011}
+- scaled orthographic projection: \cite[p.171]{Hartley.2011}
+
+
+
 -this matrix maps from homogeneous coordinates of a world point in 3-space to homogeneous coordinates of the imaged point on the image plane
 -cameras properties, the internal camera parameters (intrinsics) are saved in another matrix K
 -two important classes of cam matrices: finite cameras and cams with their centre at infinity, such as affine cam (represents parallel projection)
  (\cite[p.152]{Hartley.2011})
- 
+
+%\subsection{Spaces} maybe this chapter about world space and camera space? 
 \subsubsection{Extrinsic parameters}
 \subsubsection{Intrinsic paramters}
 
 %------------------------------
 \section{Epipolar Geometry}
 %------------------------------
+(\cite{Hartley.2011} and \cite{Szeliski.2011} and \cite{Luhmann.2014})
 \subsection{Aufbau}
 \subsection{Essential matrix}
 \index{Essential matrix}
