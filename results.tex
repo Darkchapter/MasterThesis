@@ -1,10 +1,12 @@
-\section{Summarized Experimental Results}
+\section{Summarized Experimental Results}\label{sec:ExperimentalResults}
 
 %------------------------------------------------%
 % Cam set-up	
 %------------------------------------------------%
 \paragraph{Illumination vs. depth of field.}
 \autoref{par:Lighting}
+
+\paragraph{problems with high speed cams vs. normal cams!}
 
 \paragraph{Baseline}
 --> cam rig
@@ -14,7 +16,26 @@
 % Cam calibration
 %------------------------------------------------%
 \paragraph{Problems with the checkerboard.}
-even/uneven number, unclean printout, reflections, unscharf etc.
+even/uneven number, unclean printout, reflections, unscharf, Beleuchtung etc. ---> image rejection
+
+\paragraph{Time consuming}
+only after capturing and selecting pattern pairs it can be checked if the calibration went smoothly
+plus if the cameras are moved accidentally the whole procedure has to be repeated
+
+\paragraph{Rectification}
+\todo{Problem with rectification:}
+
+\enquote{It is important to check the rectified images even if the reprojection errors are low. Sometimes, if the pattern only covers a small percentage of the image, the calibration achieves low reprojection errors, but the distortion estimation is incorrect. An example of this type of incorrect estimation for single camera calibration is shown below.} (\cite{StereoCalib.2016})
+\url{http://www.mathworks.com/matlabcentral/answers/231808-problem-with-rectify-stereoimages}
+-> not solved
+
+\url{http://www.mathworks.com/matlabcentral/answers/247432-stereo-calibration-wrong-output-size-of-image}
+
+\url{http://www.mathworks.com/matlabcentral/answers/155806-does-the-stereo-calibration-tutorial-work-for-angled-cameras}
+
+\url{http://www.mathworks.com/matlabcentral/answers/231808-problem-with-rectify-stereoimages}
+
+\url{http://www.mathworks.com/matlabcentral/answers/259267-camera-calibration-camerapose-vs-extrinsic}
 
 %------------------------------------------------%
 % Image capturing

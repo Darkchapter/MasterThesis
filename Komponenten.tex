@@ -93,7 +93,7 @@ The software \textit{TimeBench}\footnote{More information about TimeBench can be
 
 The software was chosen because of its close connection to the used high-speed cameras and its optimized work with large amount of image data. It can also be used with third party video cameras.
 
-TimeBench was first used to create image pair sequences of the calibration patter in several positions and angles for the camera calibration process (see \autoref{sec:Calibration}). And then it was used for recording a high-speed image sequence of moving objects to later reconstruct them in MATLAB (see \autoref{ssec:reconstruction}). 
+TimeBench was first used to create image pair sequences of the calibration patter in several positions and angles for the camera calibration process (see \autoref{sec:Calibration}). And then it was used for recording a high-speed image sequence of moving objects to later reconstruct them in MATLAB (see \autoref{sec:Reconstruction}). 
 \todo{reference to experiment cam calibration and reconstructing of objects}\\
 
 \subsection{MATLAB} \label{ssec:Matlab}
@@ -103,7 +103,7 @@ A large portion of the MATLAB community is involved in researching the algorithm
 
 The reasons stated above led to the usage of MATLAB as the development environment of choice in this thesis. Initially MATLAB R2015b was used, but due to newly added functions for data refinement (see \autoref{sec:refinement}) the software needed to be updated to MATLAB R2016a.
    
-The 3-D reconstruction was programmed and organized in one MATLAB script file. To get the needed stereo parameters an built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Implementation}.
+The 3-D reconstruction was programmed and organized in one MATLAB script file. To get the needed stereo parameters an built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Experiments}.
 
 One of the biggest problems with MATLAB is its documentation. Although it often provides good examples and a lot of details, it is not explicit enough in other important areas. Certain algorithms used in the built-in functions are often times not explained, making it difficult to find mistakes when the data output is unexpected\footnote{This \enquote{blackbox} problem with which you can not see how the output is created may be owed to the fact that MATLAB is (and is used as) a commercial software.}. The toolboxes often lack information as well, for example an explanation of how the pipelines work, which coordinate system is used, etc. These problems restrict the programmer quite a bit and force one to either find a work around or use third party programs. More details on the encountered problems can be found in the following chapters (especially \autoref{sec:Calibration} and \todo{add all chapters with big probs here}).
 
@@ -125,5 +125,12 @@ extrisics
 
 \section{Experimental Architecture} \label{sec:architecture}
 endgültiger versuchsaufbau, many different before, which will be mentioned in the experimental phase --> visualize pipeline (?) + tatsächliche architecture
+
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=1.0\textwidth]{figures/HardwareArchitecture}
+		\caption[Hardware architecture of the final experimental set-up]{Hardware architecture of the final experimental set-up}
+		\label{fig:HardwareArchitecture}
+\end{figure}
 
 \note{Aufbau cameras, konvergierend etc.. siehe hinweis Luhman p.194 and 295}

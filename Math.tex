@@ -23,7 +23,7 @@ or alternatively,
   \end{bmatrix}
 \end{equation}
 
-Points have \textit{equivalence classes}\index{Points!equivalence classes}, which are represented by adding an extra coordinate, creating a coordinate triple. This means that $x=(x,y,1)$, $x=(2x,2y,2)$ and $x=(kx,ky,k)$, for any $k\neq0$, represent the same point, they only differ by a multiple. By dividing through $k$ the original coordinates are retrieved. These coordinate triples are called \textit{homogeneous coordinates}\index{Homogeneous coordinates}. The equation $x=(x,y,0)$ represents a \textit{point at infinity}\index{Points!Point at infinity}, since the coordinate points can not be divided by $0$. Those points form a line in the two-dimensional projective space, which is called the \textit{line at infinity}\index{Line at infinity} (\cite[p.30]{Szeliski.2011} and \cite[p.2]{Hartley.2011}).
+Points have \textit{equivalence classes}\index{Points!Equivalence classes}, which are represented by adding an extra coordinate, creating a coordinate triple. This means that $x=(x,y,1)$, $x=(2x,2y,2)$ and $x=(kx,ky,k)$, for any $k\neq0$, represent the same point, they only differ by a multiple. By dividing through $k$ the original coordinates are retrieved. These coordinate triples are called \textit{homogeneous coordinates}\index{Homogeneous coordinates}. The equation $x=(x,y,0)$ represents a \textit{point at infinity}\index{Points!Point at infinity}, since the coordinate points can not be divided by $0$. Those points form a line in the two-dimensional projective space, which is called the \textit{line at infinity}\index{Line at infinity} (\cite[p.30]{Szeliski.2011} and \cite[p.2]{Hartley.2011}).
 
 The same principles apply for points in three-dimensional coordinate systems. Thus, a 3-D point \index{Points!3-D points} can be represented using inhomogeneous coordinates:
 \begin{equation}
@@ -49,7 +49,7 @@ As stated above, a point is represented with its coordinates in a $n$-dimensiona
 This thesis is concentrating on points represented in the Cartesian coordinate system, since it is the most used system in computer graphics and computer vision environments.
 
 \paragraph{Left-handed vs. right-handed orientation.}
-\index{Coordinate systems!left-handed}\index{Coordinate systems!right-handed}
+\index{Coordinate systems!Left-handed}\index{Coordinate systems!Right-handed}
 Three-dimensional Cartesian coordinate systems can be arranged in two different directions: right-handed and left-handed. They differ only in the orientation of one of the three axis, for example the $z$-axis points to the front in a right-handed, and to the rear in a left-handed coordinate system (as illustrated in \autoref{fig:CoordinateSys}). Often the $y$-axis points downwards, defining a left-handed coordinate system. The resulting point representations in both systems are not much different from each other: by negating the $y$-coordinate of the points the coordinate system becomes right-handed. Also it is important to note that the actual position of the point in space does not change, it is only the interpretation of it which is defined by this orientation. It is up to the programmer to chose a system and it is important to be consistent throughout one environment (\cite[p.164 et seq.]{Hartley.2011} and \cite[p.167 et seq.]{Gregory.2014}). 
 
 \begin{figure}[htbp]
