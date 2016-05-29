@@ -1,51 +1,100 @@
-This chapter describes the in the experiments used hardware and software.  
+This chapter describes the hardware and software used in the experiments. An illustration of the final architecture can be found in \autoref{sec:architecture}.
+  
 \section{Hardware} \label{sec:Hardware}
-\subsection{High-speed Cameras}
+\subsection{The High-speed Cameras and related Equipment}
+The two cameras used in the scenario are color high-speed cameras of the model \textit{CR3000x2} (\textit{CamRecord} series) from \textit{Optronis}. 
 
-\todo{cams - their specs (lenses as well) - color vs. speed, speed vs. quality/ memory}
-high-speed vs. normal cams --> auf versuch verweisen
-
-the recorded data uses a lot of memory!!!
-
-\subsection{External Trigger}\label{ssec:ExTrigger}
-\todo{write stuff - find documentation, whats its name?}\\
+The following list summarizes the model's specifications (a full data sheet is included in the digital appendix of this thesis):
+\begin{itemize}
+\item \textbf{Input and output interfaces (I/O-interfaces):}
+ \begin{itemize}
+  \item Gigabit-Ethernet (GigE)
+  \item VGA video output
+  \item Interfaces for external trigger, camera synchronization and low-voltage power supply (see \autoref{fig:camSpecs}a)
+ \end{itemize}
+\item \textbf{Mechanical interfaces:}
+ \begin{itemize}
+  \item Nikon F-Mount or C-Mount
+  \item Screw threads for camera tripods etc. on three sides (\nicefrac{1}{4}-20 UNC), as seen in \autoref{fig:camSpecs}b 
+ \end{itemize}  
+\item \textbf{Sensor resolution:} 1696 x 1710 pixel
+\item \textbf{Frame rate:} 540 fps (at max. sensor resolution)\footnote{The cameras can have higher frame rates with lower sensor resolutions.}
+\end{itemize}
 
 \begin{figure}[htbp]
 		\centering
-		\includegraphics[width=1.0\textwidth]{figures/Trigger}
-		\caption[External trigger]{The external trigger.}
+		\includegraphics[width=0.8\textwidth]{figures/cameraSpecs}
+		\caption[Camera from different angles]{The CR3000x2 high-speed camera from different angles: \textbf{(a)} I/O-interfaces at the side; \textbf{(b)} top view with one of the three screw threads; \textbf{(c)} frontal view.}
+		\label{fig:camSpecs}
+\end{figure}
+
+The image sequences can be directly exported into the file formats BMP, TIFF, AVI or MPEG. Since the captured data uses a lot of storage, a sufficiently large hard disk is necessary.
+In the following experiments the cameras will have this set-up (from the perspective of the cameras' viewing direction):
+
+\paragraph{Right camera.}
+CR3000x2 camera with the number \textit{1838-ST-C-013} and 8 GB ring buffer, set as synchronization master due to the smaller buffer size\footnote{The smaller buffer size serves as a benchmark for the overall capture duration since this camera could not store more footage.}.
+
+\paragraph{Left camera}
+CR3000x2 camera with the number \textit{1838-ST-C-013} and 16 GB ring buffer.
+
+\paragraph{Lense.}
+Two simple \textit{Nikon} 50 mm lenses with fixed focal lengths were used (see \autoref{fig:camSpecs}).
+
+\paragraph{Cables and connections.}
+To connect the cameras with each other, with the trigger (see below) and with the computer, the following data cables were used:
+\begin{itemize}
+\item Three \textit{cat 7 Ethernet cables}: for connecting the two cameras with the computer.
+\item Three \textit{coaxial cables} with \textit{BNC connectors}: for the trigger and for the synchronization.
+\end{itemize}
+Furthermore a gigabit Ethernet switch is needed for the data transfer between the two cameras and the computer.
+
+\paragraph{Synchronized triggering.}
+The cameras can be triggered by software (see \autoref{ssec:Timebench}) or with a mechanical external trigger (see \autoref{fig:ExTrigger}). The latter was used in the final architecture. The external trigger and the two cameras are connected with two coaxial cables with \textit{BNC connectors}.  
+
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/Trigger}
+		\caption[External mechanical trigger]{External mechanical trigger.}
 		\label{fig:ExTrigger}
 \end{figure}
 
-\subsection{Lighting}
+\paragraph{Lighting.}\label{par:Lighting}
+The high frame rate of the cameras results in serious lighting issues. The scene has to be very brightly illuminated to get satisfying image results, which is especially true for a successful camera calibration. In addition, lighting must not be arbitrary, because the dim cycles of certain lamp filaments are visible as flicker on the images due to the high speed of the cameras. Another type of artifact can arise with the usage of \textit{HMI lighting}. With these lights the electrical arc traveling through the gas can be visible on the output images (called \textit{Arc Wander}\index{Arc Wander})\footnote{A nice summary of this topic can be found at \url{http://www.lovehighspeed.com/lighting-for-high-speed/}. The website states that a frame rate of 1000 fps needs 5.25 times more light than a frame rate of 25 fps.}. To avoid these problems, either lamps with constantly lit filaments or special LED lights need to be used. LED lights come in a variety of refresh rates and generally the ones designed for the film industry will not show any flicker as long as they are not dimmed. Hence, three \textit{EUROLITE} LED lights and one MultiLED from \textit{Optronis} were used to illuminate the scene. The final lighting set-up can be seen in \autoref{fig:Lighting}.
 
-\subsection{Calibration Pattern}
-calibration pattern: checkerboard
-first big one (durchmesser): appendix or: \url{http://www.vision.caltech.edu/bouguetj/calib_doc/htmls/pattern.pdf}
-then smaller, finer one (durchmesser)
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/lighting}
+		\caption[Lighting set-up]{Lighting set-up consisting of three \textit{EUROLITE LED CLS-18 QCL} and one MultiLED }
+		\label{fig:Lighting}
+\end{figure}
 
+\subsection{Calibration Pattern}\label{ssec:calibPattern}
+The stereo calibration toolbox for MATLAB (explained in \autoref{ssec:stereoCalibToolbox}) uses a checkerboard pattern to calibrate cameras. It does not natively support other calibration patterns. It is important to have an odd number of squares in one direction and an even number in the other direction, which lets the app determine the orientation of the pattern. The longer side will be the $x$-direction (\cite{StereoCalib.2016}).
+A checkerboard pattern can be loaded directly in MATLAB with 
+
+\begin{lstlisting}
+open checkerboardPattern.pdf;
+\end{lstlisting}
+
+A simple pattern is included in the appendix of this thesis. The pattern needs to be printed out as clean as possible and needs to be affixed on a flat surface. In the first few experiments a checkerboard with a square size of 30 cm was used. Since the cameras' field of view is small due to several facts (as it will be explained in \autoref{c:Experiments}), the size of the checkerboard needed to be reduced. The final checkerboard pattern has a square size of 3 mm (as seen in \autoref{fig:smallCalibPattern}). The procedure of checkerboard recognition is explained in more detail in \autoref{sec:Calibration}.  
+
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.5\textwidth]{figures/smallCalibPattern}
+		\caption[Checkerboard pattern for camera calibration]{Checkerboard pattern with a square size of 3 mm for camera calibration}
+		\label{fig:smallCalibPattern}
+\end{figure}
 
 \section{Software} \label{sec:Software}
 This thesis was written in \LaTeX . Other software used is explained in the following sections.
 
 \subsection{Timebench} \label{ssec:Timebench}
-The software \textit{TimeBench}\footnote{More information about TimeBench can be found on the official website at \url{http://www.optronis.com/en/products/high-speed-cameras/software.html}.} was developed by \textit{Optronis} and is included in the delivery of their high-speed camera series. It lets the user record high-speed image sequences and comes with several tools to adjust, analyze and export these sequences (\cite{Optronis.2016}). 
+The software \textit{TimeBench}\footnote{More information about TimeBench can be found on the official website at \url{http://www.optronis.com/en/products/high-speed-cameras/software.html}.} was developed by \textit{Optronis} and is included in the delivery of their high-speed camera series. It lets the user capture high-speed image sequences and comes with several tools to adjust, analyze and export these sequences (\cite{Optronis.2016}). 
 
-The software was chosen because of its close connection to the used high-speed cameras.
+The software was chosen because of its close connection to the used high-speed cameras and its optimized work with large amount of image data. It can also be used with third party video cameras.
 
-TimeBench should be only started after the two high-speed cameras have been already installed, otherwise the cameras may not be recognized by the software. The two cameras need to be dragged into a \textit{synchronization group} 
-
-\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=1.0\textwidth]{figures/timebenchRecord}
-		\caption[The views of two synchronized cameras and their recording options in TimeBench]{The views of two synchronized cameras and their recording options in TimeBench (\textit{source: software TimeBench owned by} \cite{Optronis.2016}).}
-		\label{fig:timebanchRecord}
-\end{figure}
-
-The software was first used to create image pair sequences of the calibration patter in several positions and angles for the camera calibration process (see \autoref{ssec:calibration}). And then it was used for recording a high-speed image sequence of moving objects to later reconstruct them in MATLAB (see \autoref{ssec:reconstruction}). 
+TimeBench was first used to create image pair sequences of the calibration patter in several positions and angles for the camera calibration process (see \autoref{sec:Calibration}). And then it was used for recording a high-speed image sequence of moving objects to later reconstruct them in MATLAB (see \autoref{ssec:reconstruction}). 
 \todo{reference to experiment cam calibration and reconstructing of objects}\\
-
-Either scan anleitung or find it online and include it on cd!
 
 \subsection{MATLAB} \label{ssec:Matlab}
 For the camera calibration as well as for the 3-D reconstruction, the commercial platform \textit{MATLAB}\index{MATLAB} by \textit{MathWorks} was used. MATLAB is a software that is specialized in solving mathematical problems (especially matrix operations) and visualizing data. The MATLAB programming language is matrix-based and implements object-oriented concepts like classes and inheritance. The program comes with a large library of built-in toolboxes, which can be used to address many different engineering and scientific problems. Another of MATLAB's strengths lies with its active community, which provides costum scripts and discusses recent developments in the scientific field (\cite{MathWorks.2016}).
@@ -61,18 +110,20 @@ One of the biggest problems with MATLAB is its documentation. Although it often 
 \subsubsection{Camera Vision Toolbox}
 its coordinate systems: \url{http://www.mathworks.com/help/vision/gs/coordinate-systems.html}
 \subsubsection{Camera Calibration Toolbox for MATLAB}
+\cite{Bouguet.2015}
 good for double checks, may also be used as a tutorial on camera calibration since it includes general information about calibration, references and related links
 
 release: \url{http://www.vision.caltech.edu/bouguetj/calib_doc/}
 example: \url{http://www.vision.caltech.edu/bouguetj/calib_doc/htmls/example.html}
 
-\subsubsection{Stereo calbr. toolbox for matlab}
+\subsubsection{Stereo calbr. toolbox for matlab}\label{ssec:stereoCalibToolbox}
+(\cite{StereoCalib.2016})
 stereoParameters classs
 intrinsics
 extrisics
 
 
-\section{Experiment architecture} \label{sec:architecture}
+\section{Experimental Architecture} \label{sec:architecture}
 endgültiger versuchsaufbau, many different before, which will be mentioned in the experimental phase --> visualize pipeline (?) + tatsächliche architecture
 
 \note{Aufbau cameras, konvergierend etc.. siehe hinweis Luhman p.194 and 295}

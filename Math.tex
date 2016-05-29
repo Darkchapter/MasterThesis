@@ -1,6 +1,6 @@
 Games and other virtual applications are based on mathematical models and often times need to be calculated in real-time on a computer system. The most common operations and algorithms for capturing and reconstructing 3-D models involve vectors and matrices, which are also the main concepts the MATLAB programming language is built on. Other commonly used branches of mathematics in computer vision are trigonometry, algebra, statistics and calculus (\cite[p.165]{Gregory.2014}).
 
-The following sections shall introduce the mathematical backgrounds of some of the most important algorithms in computer vision. For this, the basic 2-D and 3-D primitives in combination with the 3-D to 2-D projection need to be discussed first. Mathematical problems in the multiple view geometry can be often broken down into 2-D space problems. Readers who have already studied computer graphics can skip the basic chapters. The explanations shall only serve as an overview and summary of the topics (\cite[p.29]{Szeliski.2011} and (\cite[p.165 et seq.]{Gregory.2014}).
+The following sections shall introduce the mathematical backgrounds of some of the most important algorithms in computer vision. For this, the basic 2-D and 3-D primitives in combination with the 3-D to 2-D projection need to be discussed first. Mathematical problems in multiple view geometry can often be broken down into 2-D space problems. Readers who have already studied computer graphics can skip the basic chapters. The explanations shall only serve as an overview and summary of the topics (\cite[p.29]{Szeliski.2011} and (\cite[p.165 et seq.]{Gregory.2014}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Projective and Single-View Geometry}
@@ -39,18 +39,18 @@ Note that the \textit{points at infinity} in 3-D space form the \textit{plane at
 
 \subsection{Coordinate Systems}
 \paragraph{Types of coordinate systems.}
-As stated above, a point is represented with its coordinates in a $n$-dimensional space, whereas in computer vision $n$ usually has the value $2$ or $3$. Hence, coordinate systems\index{Coordinate systems} play an important role in computer vision tools. While the \textit{Cartesian coordinate system} is the most commonly used coordinate system in the field, it is by far not the only one. The following list shall introduce three important coordinate systems, which use different concepts: (\cite[p.166 et seq.]{Gregory.2014}.  
+As stated above, a point is represented with its coordinates in a $n$-dimensional space, whereas in computer vision $n$ usually has the value $2$ or $3$. Hence, coordinate systems\index{Coordinate systems} play an important role in computer vision tools. While the \textit{Cartesian coordinate system} is the most commonly used coordinate system in the field, it is certainly not the only one. The following list will introduce three important coordinate systems, which use different concepts: (\cite[p.166 et seq.]{Gregory.2014}.  
 \begin{enumerate}[i]
 \item \textit{Cartesian coordinate systems}\index{Coordinate systems!Cartesian coordinate system}: Two or three fixed perpendicular axis which form the 2-D or 3-D space. The points are represented by $(P_x,P_y)$ or $(P_x,P_y,P_z)$ and an illustration can be seen in \autoref{fig:CoordinateSys}.  
 \item \textit{Cylindrical coordinate systems}\index{Coordinate systems!Cylindrical coordinate system}: A system with a vertical axis $h$, a radial axis $r$ and the yaw angle $\Theta$. The points are represented by $(P_h,P_r,P_\Theta)$
 \item \textit{Spherical coordinate systems}\index{Coordinate systems!Spherical coordinate system}: A system specified by the radial distance $r$ of a point from the origin, the yaw angle $\Theta$ and a pitch angle $\phi$. Thus, a point is represented by $(P_r,P_\phi,P_\Theta)$.
 \end{enumerate}
 
-This thesis is concentrating on points represented in the Cartesian coordinate system, since it is the mostly used system in computer graphics and computer vision environments.
+This thesis is concentrating on points represented in the Cartesian coordinate system, since it is the most used system in computer graphics and computer vision environments.
 
 \paragraph{Left-handed vs. right-handed orientation.}
 \index{Coordinate systems!left-handed}\index{Coordinate systems!right-handed}
-Three-dimensional Cartesian coordinate systems can be arranged in two different directions: right-handed and left-handed. They differ only in the orientation of one of the three axis, for example the $z$-axis points to the front in a right-handed, and to the rear in a left-handed coordinate system (as illustrated in \autoref{fig:CoordinateSys}). Often the $y$-axis points downwards, defining a left-handed coordinate system. The resulting point representations in both systems are not much different from each other: by negating the $y$-coordinate of the points the coordinate system becomes right-handed. Also it is important to note that the actual position of the point in space does not change, it is only the interpretation of it which gets defined by this orientation. It is up to the programmer to chose a system and it is important to be consistent throughout one environment (\cite[p.164 et seq.]{Hartley.2011} and \cite[p.167 et seq.]{Gregory.2014}). 
+Three-dimensional Cartesian coordinate systems can be arranged in two different directions: right-handed and left-handed. They differ only in the orientation of one of the three axis, for example the $z$-axis points to the front in a right-handed, and to the rear in a left-handed coordinate system (as illustrated in \autoref{fig:CoordinateSys}). Often the $y$-axis points downwards, defining a left-handed coordinate system. The resulting point representations in both systems are not much different from each other: by negating the $y$-coordinate of the points the coordinate system becomes right-handed. Also it is important to note that the actual position of the point in space does not change, it is only the interpretation of it which is defined by this orientation. It is up to the programmer to chose a system and it is important to be consistent throughout one environment (\cite[p.164 et seq.]{Hartley.2011} and \cite[p.167 et seq.]{Gregory.2014}). 
 
 \begin{figure}[htbp]
 		\centering
@@ -60,7 +60,7 @@ Three-dimensional Cartesian coordinate systems can be arranged in two different 
 \end{figure}
 
 \subsection{3-D to 2-D Projections}\label{ssec:projection}
-To display a model of the 3-D world on a computer screen one has to map the 3-D objects to a 2-D representation. In this process the 3-D structure gets projected on a two-dimensional image, losing one dimension. Thus, there is a minimum of two coordinate systems involved: the world-space\index{Coordinate systems!World-space} and the 2-D image coordinates. Their relationship to each other can be modeled with the help of a \textit{central projection}\index{Projection!Central projection}: a ray from a world point $X_i$ passes through the fixed \textit{center of projection}\index{Projection!Center of projection} $C$ and intersects with the \textit{image plane} (as seen in \autoref{fig:Projection}). This intersection $x_i$ represents the image of the world point $X_i$ (\cite[p.6 et seq.]{Hartley.2011}).
+To display a model of the 3-D world on a computer screen one has to map the 3-D objects to a 2-D representation. In this process the 3-D structure gets projected on a two-dimensional image, losing one dimension. Thus, there is a minimum of two coordinate systems involved: the world-space\index{Coordinate systems!World-space} and the 2-D image coordinates. Their relationship to each other can be modeled with the help of a \textit{central projection}\index{Projection!Central projection}: a ray from a point $X_i$ in real world space (\textit{world point}) passes through the fixed \textit{center of projection}\index{Projection!Center of projection} $C$ and intersects with the \textit{image plane} (as seen in \autoref{fig:Projection}). This intersection $x_i$ represents the image of the real world point $X_i$ (\cite[p.6 et seq.]{Hartley.2011}).
 
 \begin{figure}[htbp]
 		\centering
@@ -86,7 +86,7 @@ This model can be seen as a simple camera, in which the center of projection is 
 \end{equation}
 
 \subsection{The projective Camera}\label{ssec:projCam}
-Real-world 3-D objects can be reconstructed by using one or multiple cameras to digitize them (later chapters will cover this process in more detail). As stated above, a camera is a mapping of the 3-D world space to a 2-D image. This mapping is represented with certain matrices $P$\index{Camera matrix}. Thinking of real cameras one has to take their own properties, like their focal length and aspect ratio, into account as well. These properties are called \textit{internal camera parameters} or \textit{intrinsics}\index{Intrinsic camera parameters} and are stored in a $3\times 3$ matrix $K$ (\cite[p.152 et seq.]{Hartley.2011}).
+Real-world 3-D objects can be reconstructed by using one or multiple cameras to digitize them (later chapters will cover this process in more detail). As stated above, a camera is the mapping of the 3-D world space to a 2-D image. This mapping is represented with certain matrices $P$\index{Camera matrix}. Thinking of real cameras one has to take their own properties, like their focal length and aspect ratio, into account as well. These properties are called \textit{internal camera parameters} or \textit{intrinsics}\index{Intrinsic camera parameters} and are stored in a $3\times 3$ matrix $K$ (\cite[p.152 et seq.]{Hartley.2011}).
 
 Cameras can be classified into \textit{finite cameras}\index{Finite cameras} and cameras which have their center at infinity (e.g. \textit{affine cameras}\index{Affine camera} for parallel projection\index{Projection!Parallel projection}). Each camera model has its own matrix which represents its particular camera mapping. The models important for this thesis are using the \textit{central projection} (see \autoref{eq:camMatrix}) as the basic principal (\cite[p.153]{Hartley.2011}).
 
@@ -120,7 +120,7 @@ with $Z = f$ as the \textit{image plane} or \textit{focal plane} and the world-p
  \mathbf{x}=P\mathbf{X}
 \end{equation}
 
-Taking the fact into account that the origin of coordinates in the image plane may not be at the \textit{principal point}\index{Principal point} $(p_x, p_y)^T$, this principle point offset needs to be addressed with (\cite[p.155]{Hartley.2011}):
+Taking into account the fact that the origin of coordinates in the image plane may not be at the \textit{principal point}\index{Principal point} $(p_x, p_y)^T$, this principle point offset must be addressed with (\cite[p.155]{Hartley.2011}):
 \begin{equation} 
  \begin{pmatrix}
   X \\
@@ -161,7 +161,7 @@ is the \textit{camera calibration matrix}. \autoref{eq:princPt} can then be writ
 \end{equation}
 
 \paragraph{Camera rotation and translation}
-Real-world points are usually expressed in a different coordinate system of their own: the \textit{world coordinate system} or \textit{world frame or space}\index{Coordinate systems!World-space}. This system stands in relation to the camera coordinate system via a rotation and translation as illustrated in \autoref{fig:CoordinateSystemRT}.
+Real world points are usually expressed in a different coordinate system of their own: the \textit{world coordinate system} or \textit{world frame or space}\index{Coordinate systems!World-space}. This system stands in relation to the camera coordinate system via a rotation and translation as illustrated in \autoref{fig:CoordinateSystemRT}.
 
 \begin{figure}[htbp]
 		\centering
@@ -199,9 +199,9 @@ In combination with \autoref{eq:princPtShort} this leads to the general mapping 
 with $\mathbf{X}$ now written in world coordinates, $K$ representing the \textit{internal camera parameters} and $R$ and $\tilde{C}$ representing the \textit{external camera parameters}\index{Extrinsic camera parameters} giving a projective camera 11 independent transformation parameters (\cite[p.156 et seq.]{Hartley.2011} and \cite[p.274]{Luhmann.2014}. 
 \todo{extrinsics, intrinsics --> compare with matlab}
 
-\note{For computer vision the Euclidean space $\mathbb{R}^n$ is problematic in some ways. Parallel lines meet \enquote{at infinity}, which is merely a model but typically all points are equal in the real world - there is no origin. Euclidean as well as affine transformations \enquote{preserve}\footnote{Points at infinity remain points at infinity even after computations.} points at infinity, which treats them in a special way. For convenience, computer vision uses the projective space $\mathbb{P}^n$ to map 3-D objects to 2-D images. This is achieved by extending the Euclidean space with a line (or a plane) at infinity. Now points at infinity are not any different than other points and they are projected to other points with projective transformations. A projective camera therefore is a map from $\mathbb{P}^3$ to $\mathbb{P}^2$. However, it is still important to remember that cameras are Euclidean devices (\cite[p.1 et seqq. and 165]{Hartley.2011}).}
+\note{For computer vision the Euclidean space $\mathbb{R}^n$ is problematic in many ways. Parallel lines meet \enquote{at infinity}, which is merely a model but typically all points are equal in the real world - there is no origin. Euclidean as well as affine transformations \enquote{preserve}\footnote{Points at infinity remain points at infinity even after computations.} points at infinity, making them different. For convenience, computer vision uses the projective space $\mathbb{P}^n$ to map 3-D objects to 2-D images. This is achieved by extending the Euclidean space with a line (or a plane) at infinity. Now points at infinity are not any different than other points and they are projected to other points with projective transformations. A projective camera therefore is a map from $\mathbb{P}^3$ to $\mathbb{P}^2$. However, it is still important to remember that cameras are Euclidean devices (\cite[p.1 et seqq. and 165]{Hartley.2011}).}
 
-
+\todo{spell-check from here}\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Epipolar and Two-View Geometry}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
