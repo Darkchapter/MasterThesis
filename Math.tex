@@ -280,7 +280,7 @@ Since all epipolar lines intersect at the \textit{epipoles}\index{Epipole}, thes
 
 With this computed geometry the relative pose and calibration for a pair of cameras in world space is known. The epipolar lines corresponding to a pixel in one image can now be used to find the corresponding pixel in the second view. For this, different corresponding algorithms can be used, such as \textit{optical flow}. Due to the computed epipolar geometry, the corresponding points only need to be searched along the epipolar lines. To speed up the search, the image pairs can be \textit{rectified} first (\cite[p.472 et seq.]{Szeliski.2011}).
 
-\subsection{Image Rectification and Disparity}
+\subsection{Image Rectification and Disparity}\label{ssec:RectificationDisp}
 By \textit{rectifying}\index{Rectification} image pairs corresponding horizontal lines become epipolar lines, which means that all corresponding image points are then lying on the same horizontal lines. This makes the search for corresponding points much easier since the pixels do not have to be compared on \textit{skew lines} but can be compared only on the same \textit{scan lines} (\cite[p.1]{Loop.2001}).
 
 \note{Although image rectification works the best for cameras which are standing next to each other, it can still be achieved in other scenarios as well. However, the input images should not be too verged and can not have too big of a size difference. Rectification is not a must and there are other methods to make the search for corresponding points easier, e.g. \textit{plane sweep}\index{Plane sweep}. In general, rectifying an arbitrary collection of images with non-collinear optical centers simultaneously is not possible (\cite[p.472 et seq.]{Szeliski.2011}).}

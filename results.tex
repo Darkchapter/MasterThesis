@@ -16,7 +16,8 @@
 % Cam calibration
 %------------------------------------------------%
 \paragraph{Problems with the checkerboard.}
-even/uneven number, unclean printout, reflections, unscharf, Beleuchtung etc. ---> image rejection
+even/uneven number, unclean printout, artifacts, reflections, unscharf, Beleuchtung etc. ---> image rejection
+--> image correction
 
 \paragraph{Time consuming}
 only after capturing and selecting pattern pairs it can be checked if the calibration went smoothly
@@ -47,4 +48,10 @@ sequence vs. single images --> pair needs to be recorded simultaneuosly or needs
 % Reconstruction
 %------------------------------------------------%
 \paragraph{Problems with feature detection.}
-a lot of texture, non symmetrical, scharf,
+a lot of texture, non symmetrical, scharf, --> show screenshot from matched points --> not enough on complex structure car
+\paragraph{Unit problem}
+The problem with units: They are *all* measured in Units - no specific actual unit of measure, just raw 'units'... its then up to where you interpret that model as to how that program processes those units.
+
+\url(http://animation.about.com/od/faqs/f/What-Are-Standard-Units-Of-Measurement-In-3d-Animation.htm)
+That sort of explains it. You really need to think in just 'units' and NOT  a 'unit of measure' as it will trip you up in the future otherwise.
+Anyway - Its a very important distinction - Units in 3-D Space have *no* correlation to Inches or millimetres or any other 'unit of measure' - the file simply details the number of 'units'...

@@ -17,10 +17,11 @@ The two cameras should be set-up next to each other with little to no rotation. 
 TimeBench should be only started after the two high-speed cameras have already been connected to the computer, otherwise the cameras may not be recognized by the software. After the hardware was installed (see \autoref{sec:architecture} for the cable set-up), the two cameras need to be dragged into a \textit{synchronization group} and the following configurations are recommended (\autoref{fig:timebanchRecord} shows a screenshot of the connected and synchronized cameras in Timebench): 
 
 \begin{enumerate}[i]
-\item Both cameras: set the frame rate to 70 fps\footnote{The smaller frame rate gives more time for positioning the calibration pattern in different angles, since the data amount is decreased to the lower frame rate.}
+\item Both cameras: set the frame rate to 70 fps\footnote{The smaller frame rate gives more time for positioning the calibration pattern in different angles, since the data amount is decreased to the lower frame rate.}.
 \item Right camera: check the box \enquote{Is Master} to set the right camera as the synchronization master.
 \item Both cameras: set the exposure time slightly shorter than 1/frame rate.
-\item Right camera: do not forget to white balance 
+\item Right camera: do not forget to white balance.
+\item Save images as \textit{bmp}.
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -60,3 +61,6 @@ The last step is to export the calibrated stereo camera parameters. \textbf{Expo
 \subsection{The stereoParameters Object}\label{ssec:stereoParamsObj}
 \todo{what does it mean}
 \enquote{The object contains the intrinsic and extrinsic parameters of the camera, and the distortion coefficients. You can use this object for various computer vision tasks, such as image undistortion, measuring planar objects, and 3-D reconstruction}(\cite{StereoCalib.2016}).
+
+\subsubsection{Calculation of the Fundamental Matrix}
+\todo{do it!!!!!}
