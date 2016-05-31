@@ -59,8 +59,13 @@ Another factor to be reviewed is the \textit{rectification}. By clicking on \tex
 The last step is to export the calibrated stereo camera parameters. \textbf{Export camera parameters} creates a \textit{stereoParameters object} in MATLAB's workspace and \textbf{Generate MATLAB script} saves the calibration steps of the session as well.
 
 \subsection{The stereoParameters Object}\label{ssec:stereoParamsObj}
-\todo{what does it mean}
-\enquote{The object contains the intrinsic and extrinsic parameters of the camera, and the distortion coefficients. You can use this object for various computer vision tasks, such as image undistortion, measuring planar objects, and 3-D reconstruction}(\cite{StereoCalib.2016}).
+The stereoParameters object\index{StereoParameters object} stores the intrinsic\index{Intrinsic camera parameters} and extrinsic camera parameters\index{Extrinsic camera parameters} as well as the lens distortion (\cite{StereoCalib.2016}).
 
-\subsubsection{Calculation of the Fundamental Matrix}
-\todo{do it!!!!!}
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=1.0\textwidth]{figures/StereoParams}
+		\caption[The stereoParameter object of session 14 in MATLAB]{The stereoParameter object of session 14 in MATLAB}
+		\label{fig:StereoParams}
+\end{figure}
+
+Sine the experiments resulted in a rectification problem (see \autoref{sec:ExperimentalResults}), the fundamental matrix computed by the Stereo Camera Calibrator needed to be evaluated. The MATLAB file \textit{testEssentialandFundamentalMatrix.m} addresses this problem.

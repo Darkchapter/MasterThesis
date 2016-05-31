@@ -1,0 +1,28 @@
+\section{Point cloud}
+
+
+\begin{itemize}
+\item definition
+\begin{itemize}
+	\item \url{http://de.mathworks.com/help/vision/ref/reconstructscene.html#outputarg_pointCloud}
+	\item \url{http://stackoverflow.com/questions/18994680/can-anyone-explain-the-difference-between-organized-and-unorganized-point-cloud}
+	\item \url{http://pointclouds.org/documentation/tutorials/pcd_file_format.php}
+	\item \cite{Rusu.2011} and \url{http://www.pointclouds.org/}
+\end{itemize}
+\item what can be done with pt clouds
+\begin{itemize}
+	\item refinement (see chapter refinement)
+	\item stitch 3D point clouds together, 
+	\item create surfaces from point clouds and visualize them
+	\item extract keypoints and compute descriptors to recognize objects in the world based on their geometric appearance
+\end{itemize}
+
+
+\end{itemize}
+
+\enquote{An organised point cloud is organized as a 2D array of points with the same properties you'd expect if the points were obtained from a projective camera, like the Kinect, DepthSense or SwissRanger. In PCL the points array of a point cloud is actually a 2D array but one of those dimensions is only used for representing organised point clouds.
+
+In both organised and unorganised point clouds, all of X Y and Z are provided for each point, but the memory layout of organised point clouds is that of a 2D array. The memory layout of the points then is closely related to the spatial layout as represented by these XYZ values.
+
+Algorithms that work on unorganised point clouds will generally work on organised point clouds (since the 2D array of points is packed and can be interpreted as a 1D array) but specialised algorithms can be designed to work on organized point clouds. An example is the use of the organized property of a point cloud to speed up the process of calculating normals:} \url{http://stackoverflow.com/questions/18994680/can-anyone-explain-the-difference-between-organized-and-unorganized-point-cloud}
+
