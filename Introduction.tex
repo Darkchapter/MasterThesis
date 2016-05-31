@@ -19,53 +19,21 @@ Richard Szeliski, author of \textit{Computer Vision - Algorithms and Application
 
 In conclusion, the problems with computer vision can be broken down to mathematical algorithms, which are still merely models and subject to a multitude of errors. Some of these algorithms shall be the topics of this thesis.  
  
-\begin{itemize}
-\item computer vision 
-
-\item optronis, highspeed cams --> why?
-\end{itemize}
- 
-\section{About this thesis}
+\section{About this Thesis}
 The present thesis is submitted in fulfillment of the requirements for the degree of Master of Science in \textit{Computer Science in Media} of the faculty of \textit{Digital Media}. The high-speed cameras and their software components as well as technical support were provided by the company \textit{Optronis}.
 
---> fragestellung, aufgabenstellung, zu erreichender grad, wieso highspeed (lack of data --> come back to inverse problm), optronis --> on consumer level \\
---> the goal for consumer market is to make all easy and cheap 
---> the goal for industry is to connect virtual and real world content seamlessly  
-
-- could use ideal images - already a lot of studies --> not real
+In this thesis the challenge of 3-D reconstructing an image sequence captured with uncalibrated high-speed cameras is discussed. The research included not only historical background but first and foremost the mathematical principles behind the process of reconstruction. For the analysis several experimental sessions with different camera set-ups were taken and were used as the basis for a calibration and reconstruction pipeline in the software MATLAB.
 
 \textit{Optronis}\index{Optronis} is a German company which is specialized in the field of ultra-fast optical measuring systems since 1986\footnote{Check Optronis' webpage for more detailed information about the company and its products: \url{http://www.optronis.com}}. Their products are used for research and science in several fields. Both their high-speed cameras for precision measurements and their streak camera technology, which makes photons visible, help monitoring and analyzing processes that are otherwise invisible for the human eye (\cite{Optronis.2016}).
 
-This thesis is loosely linked to my bachelor's thesis, in which the \textit{Oculus Rift}, a head-mounted display\footnote{More information about head-mounted displays can be found in \autoref{sec:VAR}. The  bachelor's thesis is digitally attached (in German).}, was transformed into an AR device with the help of two webcams. The software was developed in \CS and the shading language \textit{Cg} in the \textit{Unity Engine} (\cite{Haefele.2014}).     
+High-speed cameras have the potential to provide a huge amount of data in a short time, which is not yet easy to be processed in real-time but will certainly be a big topic in the future (as seen in \autoref{c:relatedWorks}). This can fill in the lack of data and solve the \textit{inverse problem} which was addressed in the introduction above.
 
-\todo{--> zeitplan, --> vorgehensweise}
-\todo{	- Leitfaden, worauf auch thesis aufgebaut ist:
-		3 Levels of visual processing system (see Algorithms and Applications)}
+This thesis is loosely linked to my bachelor's thesis, in which the \textit{Oculus Rift}, a head-mounted display\footnote{More information about head-mounted displays can be found in \autoref{sec:VAR}. The  bachelor's thesis is digitally attached (in German).}, was transformed into an AR device with the help of two webcams. The software was developed in \CS and the shading language \textit{Cg} in the \textit{Unity Engine} (\cite{Haefele.2014}).  
 
-\begin{itemize}
-\item Methodik der thesis
-\item Kapitelaufbau: hangelt sich an Pipeline lang - v.a. grundlagen und Implementierung
-\item Background: basic definitions/ wording and historical background
-\item related works: paper, matlab examples, theses
-\item Math. principles: algos and calculations
-\item Implementation: 
-	\begin{itemize}
-	\item first final pipeline, also includes some more math. principles that are more specific
-	\item sessions and their results
-	\item summarize problems / results
-	\end{itemize}
-\item closure: ...
-\item glossar, why?
-\item appendix:  calibration pattern included, from calibr. toolbox, experimental sessions documentations
-\item the sequences not completely included since they are too big
-\end{itemize}
+The \autoref{c:Background} defines basic terms and gives a short historical background on the industry, ending with the current state-of-the-art of the field. It is followed by \autoref{c:Math}, which covers the mathematical principles of 3-D reconstruction algorithms. An overview of interesting related works is given in \autoref{c:relatedWorks} to complete the background information.
 
+The experimental part starts with the definition and explanation of the architecture and its components in \autoref{c:Components}. The documentation of the camera calibration and then the reconstruction pipeline follows in \autoref{c:Experiments}. The experimental chapter is concluded with a summary of results taken from the experimental sessions.
 
-\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.8\textwidth]{figures/starWars}
-		\caption[Bla]{Bla (\textit{source: 20th Century Fox ?} bla).}
-		\label{fig:starWars}
-\end{figure}
-%\todo{another example for AR: star wars chess --> make two graphics with holodeck and star wars chess http://cdn.slashgear.com/wp-content/uploads/2014/06/falco-600x326.png }
+The closure in \autoref{c:Closure} takes a quick glance into the future and sums up the overall issues and results.
 
+To be able to quickly find a specific topic, a glossary is added. The printed version includes short documentation sheets of the experimental sessions. The MATLAB code as well as several examples can be found in the digital appendix. Since the data captured during the experimental sessions is too big it could not be delivered with the thesis.

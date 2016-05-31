@@ -1,25 +1,19 @@
-- really hard to classify
-- describe aufgabenstellung in short here --> uncalibrated  static stereo cams as bases --> highspeed cams (a lot of pics) --> robotic --> algorithms used: stereo calibration --> BUT there is also structure from motion (which would need movement of cams --> problematic with these cams bc of lighting etc. 
-- some of these present an idea for future works as well, more further readings in the closure chapter \autoref{sec:Future}
-\begin{itemize}
-\item große family der computer vision applications: verweis auf background chapter --> todays usage (\autoref{ssec:Today})
-\item many interesting projects worth to quote
-\item facial reconstruction example from ramo et al
-\item a lot of images: \cite{Okuma.2004} \url{http://www.cs.ubc.ca/~lowe/papers/okuma04b.pdf}
-\item often robotic --> object recognition, collider detection, wegfindung
-	\begin{itemize}
-	\item older work: \textit{Temporally Coherent Stereo - Imroving Performance through Knowledge of Motion} 	\cite{Tucakov.1997} \url{http://www.cs.ubc.ca/~lowe/papers/tucakov97.pdf}
-	\item \cite{Helmer.2010} for a newer approach with stereo
-	\item or this? \url{http://www.cs.ubc.ca/~lowe/papers/10helmerACCV.pdf}
-	\end{itemize}
-\end{itemize}
+\label{c:relatedWorks}
+Due to the broad nature of the field of computer vision, it is difficult to find work that is similar to the following procedure. The ultimate goal for this thesis is to reconstruct a 3-D sequence using images captured with uncalibrated high-speed cameras, the technique generates a lot of data that must then be processed. The algorithms used belong to the field of stereo calibration.
+In \autoref{sec:Future} the connection between this thesis and the field of robotics will be briefly addressed.
 
-\section{Structure from motion}
+\cite{Lowe.2016} provides a comprehensive overview of the applications and recent research in the field of computer vision, all of which are worthy of quotation in this thesis.
 
-\begin{itemize}
-\item \url{http://www.cs.cornell.edu/projects/bigsfm/} 
-\end{itemize}
+A research group from Furtwangen University studied the reconstruction of facial expressions with MATLAB and stereo calibration algorithms. Although the research did not involve any high-speed cameras it served as a basis for this thesis.
 
-\section{Stereo matching}
+The paper \textit{Automatic rectification of long image sequences} from K. Okuma, J. J. Little and D. G. Lowe from 2004 researched the topic on compensating transformations, made by a fixed camera during the capture of a long sequence of images. The proposed algorithm corrects other projection errors as well and rectifies the images. The computation was tested on long sequences of a hockey match. The mathematical background follows the one used in this paper. To eliminate outliers and select inliers the \textit{RANSAC}\index{RANSAC} algorithm was used. The research takes the approach one step further and maps the projected images onto a model (\cite{Okuma.2004}).
 
+An even older piece of research on the topic, \textit{Temporally Coherent Stereo: Improving Performance Through Knowledge of Motion} from V. Tucakov and D. G. Lowe from 1997, computes the stereo over disparities and creates a depth map. The algorithm uses depth maps and estimates the motions of a robot to move it further. The relatively old research shows the close connection of the algorithms presented in this thesis to the field of robotics (\cite{Tucakov.1997}). 
 
+The more recent study \textit{Using Stereo for Object Recognition} from S. Helmer and D. G. Lowe from 2010 gives a good overview of the topic of more recent object recognition. It also uses depth information for recognition. The paper mentions the challenges of shape based objects regarding their difficult reconstruction (\cite{Helmer.2010}).
+
+A closely related topic is the structure from motion algorithm\index{Structure from motion} which should be briefly mentioned at this point. The research group \textit{BigSFM}\footnote{The documentation and other information can be found at \url{http://www.cs.cornell.edu/projects/bigsfm/}.} tries to reconstruct the world from internet photos. The research includes feature detection, image matching, optimizations and object recognition. The website provides many recent projects, papers and open source code.
+
+The reconstruction of stereo high-speed sequences could not be found in any other recent paper. MATLAB provides several tutorials and examples regarding the Computer Vision System Toolbox and the Stereo Camera Calibrator in particular.
+
+Computer vision is a heavily researched topic, this is especially in the field of robotics where the algorithms are used for path finding, object recognition, and obstacle avoidance.

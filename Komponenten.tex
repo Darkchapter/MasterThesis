@@ -1,3 +1,4 @@
+\label{c:Components}	
 This chapter describes the hardware and software used in the experiments. An illustration of the final architecture can be found in \autoref{sec:architecture}.
   
 \section{Hardware} \label{sec:Hardware}
@@ -76,7 +77,7 @@ A checkerboard pattern can be loaded directly in MATLAB with
 open checkerboardPattern.pdf;
 \end{lstlisting}
 
-A simple pattern is included in the appendix of this thesis. The pattern needs to be printed out as clean as possible and needs to be affixed on a flat surface. In the first few experiments a checkerboard with a square size of 30 cm was used. Since the cameras' field of view is small due to several facts (as it will be explained in \autoref{c:Experiments}), the size of the checkerboard needed to be reduced. The final checkerboard pattern has a square size of 3 mm (as seen in \autoref{fig:smallCalibPattern}). The procedure of checkerboard recognition is explained in more detail in \autoref{sec:Calibration}.  
+A simple pattern is included in the appendix of this thesis. The pattern needs to be printed out as clean as possible and needs to be affixed to a flat surface. In the first few experiments a checkerboard with a square size of 30 cm was used. Because the cameras' field of view is small (the reasons for this are explained in \autoref{c:Experiments}), the size of the checkerboard needed to be reduced. The final checkerboard pattern has a square size of 3 mm (as seen in \autoref{fig:smallCalibPattern}). The process of checkerboard recognition is explained in more detail in \autoref{sec:Calibration}.  
 
 \begin{figure}[htbp]
 		\centering
@@ -91,47 +92,45 @@ This thesis was written in \LaTeX . Other software used is explained in the foll
 \subsection{Timebench} \label{ssec:Timebench}
 The software \textit{TimeBench}\footnote{More information about TimeBench can be found on the official website at \url{http://www.optronis.com/en/products/high-speed-cameras/software.html}.} was developed by \textit{Optronis} and is included in the delivery of their high-speed camera series. It lets the user capture high-speed image sequences and comes with several tools to adjust, analyze and export these sequences (\cite{Optronis.2016}). 
 
-The software was chosen because of its close connection to the used high-speed cameras and its optimized work with large amount of image data. It can also be used with third party video cameras.
+This software was chosen due to its close connection to the high-speed cameras that were used. It is also well optimized to process large amounts of image data. The software can also be used with third party video cameras.
 
-TimeBench was first used to create image pair sequences of the calibration patter in several positions and angles for the camera calibration process (see \autoref{sec:Calibration}). And then it was used for recording a high-speed image sequence of moving objects to later reconstruct them in MATLAB (see \autoref{sec:Reconstruction}). 
-\todo{reference to experiment cam calibration and reconstructing of objects}\\
+TimeBench was first used to create image pair sequences of the calibration pattern in several positions and angles for the camera calibration process (see \autoref{sec:Calibration}). The software was then used to record a high-speed image sequence of moving objects, the objects were later reconstructed in MATLAB (see \autoref{sec:Reconstruction}). 
 
 \subsection{MATLAB} \label{ssec:Matlab}
-For the camera calibration as well as for the 3-D reconstruction, the commercial platform \textit{MATLAB}\index{MATLAB} by \textit{MathWorks} was used. MATLAB is a software that is specialized in solving mathematical problems (especially matrix operations) and visualizing data. The MATLAB programming language is matrix-based and implements object-oriented concepts like classes and inheritance. The program comes with a large library of built-in toolboxes, which can be used to address many different engineering and scientific problems. Another of MATLAB's strengths lies with its active community, which provides costum scripts and discusses recent developments in the scientific field (\cite{MathWorks.2016}).
+For the camera calibration as well as for the 3-D reconstruction, the commercial platform \textit{MATLAB}\index{MATLAB} by \textit{MathWorks} was used. MATLAB is a software that is specialized in solving mathematical problems (especially matrix operations) and visualizing data. The MATLAB programming language is matrix-based and implements object-oriented concepts like classes and inheritance. The program comes with a large library of built-in toolboxes, which can be used to address many different engineering and scientific problems. Another of MATLAB's strengths lies with its active community, which provides custom scripts and discusses recent developments in the scientific field (\cite{MathWorks.2016}).
 
 A large portion of the MATLAB community is involved in researching the algorithms that drive the field of multiple view geometry in computer vision (see \autoref{c:relatedWorks} for examples). MathWorks also implements new content on this topic regularly. 
 
-The reasons stated above led to the usage of MATLAB as the development environment of choice in this thesis. Initially MATLAB R2015b was used, but due to newly added functions for data refinement (see \autoref{sec:refinement}) the software needed to be updated to MATLAB R2016a.
+The reasons stated above led to the usage of MATLAB as the development environment of choice in this thesis. Initially MATLAB R2015b was used, but due to newly added functions for data refinement the software needed to be updated to MATLAB R2016a.
    
-The 3-D reconstruction was programmed and organized in one MATLAB script file. To get the needed stereo parameters an built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Experiments}.
+The 3-D reconstruction pipeline was programmed and organized in one MATLAB script file. To obtain the required stereo parameters a built-in toolbox was used, which will be discussed in the following sections. Documentation for all functions used and a step-by-step-guide can be found in \autoref{c:Experiments}.
 
-One of the biggest problems with MATLAB is its documentation. Although it often provides good examples and a lot of details, it is not explicit enough in other important areas. Certain algorithms used in the built-in functions are often times not explained, making it difficult to find mistakes when the data output is unexpected\footnote{This \enquote{blackbox} problem with which you can not see how the output is created may be owed to the fact that MATLAB is (and is used as) a commercial software.}. The toolboxes often lack information as well, for example an explanation of how the pipelines work, which coordinate system is used, etc. These problems restrict the programmer quite a bit and force one to either find a work around or use third party programs. More details on the encountered problems can be found in the following chapters (especially \autoref{sec:Calibration} and \todo{add all chapters with big probs here}).
+One of the biggest problems with MATLAB is its documentation. Although it often provides good examples and a lot of details, it is not explicit enough in other important areas. Certain algorithms used in the built-in functions are often times not explained, making it difficult to find mistakes when the data output is unexpected\footnote{This \enquote{blackbox} problem with which you can not see how the output is created may be owed to the fact that MATLAB is (and is used as) a commercial software.}. The toolboxes often lack information as well, for example an explanation of how the pipelines work, which coordinate system is used, etc. These problems restrict the programmer quite a bit and force one to either find a work around or use third party programs. 
 
-\subsubsection{Camera Vision Toolbox}
-\todo{important: its coordinate systems: \url{http://www.mathworks.com/help/vision/gs/coordinate-systems.html}}
+\subsubsection{Computer Vision System Toolbox}
+The \textit{Computer Vision System Toolbox } from MATLAB is a library with tools which are used for detecting, matching, tracking or simulating in computer vision. In this thesis the toolbox is used for camera calibration and 3-D scene reconstruction. 
+
+The Computer Vision System Toolbox implements a right-handed world coordinate system in which the \textit{x}-axis points to the right, the \textit{y}-axis points down and the \textit{z}-axis points into the viewing direction of the camera, as shown in \autoref{fig:camCoordinateSys}\footnote{Taken from \url{http://www.mathworks.com/help/vision/gs/coordinate-systems.html}.}.
+
+\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.6\textwidth]{figures/camCalibPosition}
+		\caption[Camera-based coordinate system of MATLAB]{Camera-based coordinate system of MATLAB (\textit{source:} (\cite{StereoCalib.2016}).}
+		\label{fig:camCoordinateSys}
+\end{figure}
+
+\subsubsection{Stereo Calibration Toolbox for MATLAB}\label{ssec:stereoCalibToolbox}
+The \textit{Stereo Calibrator Toolbox} for MATLAB is an MATLAB application which estimates the stereo parameters of an uncalibrated stereo camera system. The toolbox was used to calibrate the two high-speed cameras in the final pipeline (\cite{StereoCalib.2016}).
 
 \subsubsection{Camera Calibration Toolbox for MATLAB}
-\cite{Bouguet.2015}
-good for double checks, may also be used as a tutorial on camera calibration since it includes general information about calibration, references and related links
-
-release: \url{http://www.vision.caltech.edu/bouguetj/calib_doc/}
-example: \url{http://www.vision.caltech.edu/bouguetj/calib_doc/htmls/example.html}
-
-\subsubsection{Stereo calbr. toolbox for matlab}\label{ssec:stereoCalibToolbox}
-(\cite{StereoCalib.2016})
-stereoParameters classs
-intrinsics
-extrisics
-
+The \textit{Camera Calibration Toolbox} for MATLAB is another popolar alternative to calibrate a camera system. It was used to evaluate the results taken from the Stereo Calibration Toolbox. It is also included in the open source computer vision library \textit{OpenCV}\index{OpenCV}. The website provides several example projects which can be used as tutorials and it includes general information about camera calibration, which makes it a good starting point for further studies (\cite{Bouguet.2015}).
 
 \section{Experimental Architecture} \label{sec:architecture}
-endgültiger versuchsaufbau, many different before, which will be mentioned in the experimental phase --> visualize pipeline (?) + tatsächliche architecture
+The final experimental architecture of the thesis (as seen in \autoref{fig:HardwareArchitecture}) includes four lights, two synchronized high-speed cameras on a camera rig with an external trigger and the two softwares \textit{TimeBench} and \textit{MATLAB} with toolboxes. 
 
 \begin{figure}[htbp]
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/HardwareArchitecture}
-		\caption[Hardware architecture of the final experimental set-up]{Hardware architecture of the final experimental set-up}
+		\caption[Hardware architecture of the final experimental set-up]{Hardware architecture of the final experimental set-up.}
 		\label{fig:HardwareArchitecture}
 \end{figure}
-
-\note{Aufbau cameras, konvergierend etc.. siehe hinweis Luhman p.194 and 295}

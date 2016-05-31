@@ -14,7 +14,7 @@
 \secpers{Dr.\ Bernd Reinke}					% Zweitbetreuer
 
 \author{Sarah Häfele}
-\title{3-D Reconstruction from High-speed Stereo Cameras}
+\title{Three-dimensional Reconstruction from Stereo High-speed Cameras}
 %\subtitle{Subtitle}
 \subject{Master-Thesis}
 \publishers{Hochschule Furtwangen\\Fakultät Digitale Medien}
@@ -26,8 +26,8 @@
 %\dedication{}
 
 \begin{document}
-
 \frontmatter
+\includepdf[pages=1]{Deckblatt}
 %\makecover
 \maketitle					% Titelei
 \input{EidesErklaerung}		% Eidesstattliche Erklärung
@@ -41,26 +41,24 @@
 \chapter{Introduction}\label{c:Intro}
 \input{Introduction}		% Preface & about this thesis
 
-\chapter{Background}\label{c:Background}
+\chapter{Background}
 \input{Definitions} 		% Overall definitions & History
 \input{History}				% Historical Background
 			
-
-\chapter{Mathematical Principles}\label{c:Math}
+\chapter{Mathematical Principles}
 \input{Math}				% Math. Principles
 
-\chapter{Related Works}\label{c:relatedWorks}
+\chapter{Related Works}
 \input{RelatedWorks}		% State-of-the-Art
-\chapter{Components} \label{c:Components}				% 	
+\chapter{Components}			% 	
 \input{Komponenten} 		% Architecture of Implementation, used software/hardware
 
 \chapter{Experiments}		% Implemenation - code, results, ...
 \input{Calibration}			% Camera calibration in TimeBench and Matlab Stereo Cam Calib Toolbox
 \input{Reconstruction}
-\input{ptcloud}
 \input{results}				% results/ interpretation ...
 
-\chapter{Closure} \label{c:Closure}			
+\chapter{Closure} 	
 \input{Closure} 			% fazit and future work
 
 
@@ -81,6 +79,6 @@
 	
 % to-do appendix:
 \includepdf[pages=1]{appendix/CalibPattern}
-%\includepdf[pages=1]{appendix/Reports}
+\includepdf[pages=1-15]{appendix/Reports}
 	
 \end{document}

@@ -1,42 +1,27 @@
-\section{Closure}
-\begin{itemize}
-\item Problems encountered
-	\begin{itemize}
-	\item matlab (\autoref{ssec:Matlab})
-	\end{itemize}
-\item maybe use structure from motion (see also \cite{Gordon.2004})
-	\begin{itemize}
-	\item more views
-	\item ideal for many pictures
-	\item but will also take a lot of computational work
-	\item and lighting!!!!
-	\item relevant for many pt clouds: \url{http://www.mathworks.com/help/vision/examples/3-d-point-cloud-registration-and-stitching.html}
-	\end{itemize}
-\item what needs to be changed: cameras so they can be placed better next to each other, software...
+\section{Synopsis}\label{c:Closure}
+This thesis followed the experimental pipeline in order to reconstruct a scene from stereo high-speed cameras. The mathematical  background is complex and MATLAB's built-in functions lack detailed documentation of how exactly output is calculated. Since MATLAB uses its own, special way to compute matrices and to process images, the evaluation of the collected data is difficult to interpret and the cause of problems is hard to find. 
 
-\end{itemize}
+Although the stereo correspondence algorithms were successful and led to quite satisfying reconstruction results, a different approach should be tested: the high-speed cameras capture a huge amount of data in a short amount of time. If they are moved around an object there will be many views from different angles of this particular object. This is ideal for another algorithm: the \textit{structure from motion algorithm}\index{Structure from motion}. The lighting would still be a problem, maybe even more so due to the change in the cameras position.
+
+The lighting situation should be improved with 4 similar lights, which should emit a consistent light stream so that the scene is evenly lit but not too bright.
+
+The objects should have complex, bright textures with not too many dark spots. The wheels of the toy car are black and did not reflect enough light to be recognized.
+
+The reflections on the white table were another problem. This was addressed by covering the table with a black cloth. Unfortunately the cloth absorbed too much light and the scene was too dark to be usable. An ideal surface would be neutral gray, matte and non reflective.
 
 
-\section{Future work}\label{sec:Future}
-This will also include some suggestions on further readings.
+The form of the camera case is suboptimal for stereo image capturing since the camera centers are shifted to the left and the cables on the right side of the case add to the distance between the two cameras. This results in a quite a large camera baseline. Stereo anaglyphic views are not possible with this set-up. The cameras could be placed over each other, which is also a common set-up for anaglypic image capturing. This approach was not followed since the field of view changes drastically.
 
-\begin{itemize}
-\item pt cloud refinement, stitching them together
-\item object recognition
-	\begin{itemize}
-	\item describe what is possible (how), using this papers related research chapter: \cite{Lowe.2001} \url{http://www.cs.ubc.ca/~lowe/papers/cvpr01.pdf}
-	\item and maybe this: \textit{Probabilistic Models of Appearance for 3-D Object Recognition}  \url{http://www.cs.ubc.ca/~lowe/papers/pope00.pdf}
-	\item and maybe book: Digital image processin, ch. 12 --> in workshop
-	\end{itemize}
-\item --> robotic!!!
-\item the void
-\item hoodie \url{http://www.dezeen.com/2016/04/04/artefact-shadow-hoodie-virtual-reality-gaming-design-technology/}
-\item microsoft hololens minecraft
-	
-\end{itemize}
+The point clouds can be stitched together to create one big point cloud which contains more information of one object and is more complete\footnote{This approach is followed in the example which can be found at \url{http://www.mathworks.com/help/vision/examples/3-d-point-cloud-registration-and-stitching.html}.}.
 
-\section{Acknowledgements}\label{sec:Ack}
--> sandra beuck grafik
--> alex sch. für technische beratung
--> betreuer for math. beratung
--> optronis technik zur verfügung stellen  
+Last but not least the rectification problem needs to be analyzed further with different camera set-ups and other changed variables. A forum post was already created to ask for the communitie's input.
+
+In many ways stereo high-speed cameras 
+make the process of 3-D reconstruction more difficult, but there are many potential improvements and myriad of possible applications in the future.
+
+\section{Future Work}\label{sec:Future}
+This section will take a brief look into the future and will also include some suggestions for further reading.
+
+One of the largest fields in which computer vision is applicable is that of robotics. Mobile robots need to \enquote{see} their surroundings in order to navigate around and through obstacles, and even immobile robots need to have \enquote{vision} if they are to interact with real world objects. For this the scene can be captured with cameras and then be reconstructed with algorithms such as the ones discussed in this thesis. The next step is to recognize patterns in these computed meshes for which different routines can be programmed which define how the robot has to react or interact in certain situations.
+Automatic, self-driving vehicles are taking these calculations to the next level.
+High-speed cameras have the potential to provide a lot of information in a short amount of time for such systems\footnote{The paper \cite{Lowe.2001} can be used for further readings on this topic.}.

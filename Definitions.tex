@@ -1,7 +1,8 @@
+\label{c:Background}
 \section{Definitions}
 This section covers and differentiates between the basic non-mathematical definitions and terms used in this thesis.
 
-\subsection{Virtual and augmented reality}\label{sec:VAR}
+\subsection{Virtual and Augmented Reality}\label{sec:VAR}
 The words virtual reality (VR) and augmented reality (AR) can be constantly read in the recent news all over the internet and other media. However, they are used in various contexts and are often defined differently. The definition used in this thesis is therefore only one small aspect of the whole field and should help to differentiate between the two concepts. 
 \subsubsection{Virtual reality}
 Virtual reality\index{Virtual reality} can be defined as \enquote{an electronic simulation in which images are generated in real time (...) from a stored database and displayed in such a way as to facilitate real-time interaction with the database (...).} \cite[p.148]{Latham.1995}
@@ -26,11 +27,10 @@ Computer vision\index{Computer vision} (also referred to as \enquote{machine vis
  
 As already stated in the preface, the visual modeling of perception was, for many years, underestimated by scientists studying Artificial Intelligence. Although it is still unclear whether computer vision should be modeled on the basis of biological systems, understanding how biological vision in general, and human depth perception in particular function, seems to be a necessity\footnote{Attempts to find new approaches have not yet been successful.} (compare with \textit{Oliver Faugeras'} foreword in \cite[p.xi]{Hartley.2011}). For this a short overview shall be given in \autoref{ssec:hv}.  
 
-\todo{multiple view geometry? stereo vision? --> algorithms examples: structure from motion, stereo matching --> see math. principles!, highly linked to artifical intelligence}
-\index{Stereo vision}
- 
-\subsection{Human depth perception}\label{ssec:hv}
-Our three-dimensional perception is actually based on a two-dimensional image which is projected onto our retina, but from these 2-D images we are still able to get information about how far away an object is. \todo{This information is called \textit{depth cues}\index{Depth cues}, whose connection to the actual depth of field we learn from experience.} Depth cues need to be applied to stereoscopic videos to create more accurate depth results (\cite[p.226]{Goldstein.2015} and \cite[p.28]{Hottong.2009}). 
+One of the research fields in Computer Vision is the 3-D reconstruction from image data (other fields are listed in \autoref{ssec:Today}). Two important procedures to reconstruct scenes are \textit{structure from motion}\index{Structure from motion} and \textit{stereo correspondence} algorithms. The former uses multiple views of one or more cameras to reconstruct scenes and the latter is described in more detail in the following chapters, since it was used in this thesis.
+
+\subsection{Human Depth Perception}\label{ssec:hv}
+Our three-dimensional perception is actually based on a two-dimensional image which is projected onto our retina, but from these 2-D images we are still able to get information about how far away an object is. This information is called \textit{depth cues}\index{Depth cues}, whose connection to the actual depth of field we learn from experience. Depth cues need to be applied to stereoscopic videos to create more accurate depth results (\cite[p.226]{Goldstein.2015} and \cite[p.28]{Hottong.2009}). 
 
 These depth cues can be classified into three different groups (freely adapted from \cite[p.226 et seqq.]{Goldstein.2015} and \cite[p.28 et seqq.]{Hottong.2009}):
 \begin{description}
@@ -58,24 +58,5 @@ Another movement-produced depth cue is the occlusion of objects due to movement 
 		\label{fig:Perugino}
 \end{figure}
 
-\item [iii Binocular or stereoscopic depth cues\index{Depth cues!Binocular depth cues}]\hfill \\ Stereoscopic depth cues are stimuli for which we need both eyes to experience depth of field. They mainly take the differences between the right and the left image seen by our eyes into account, which makes the  interpupillary distance the bases of the stereoscopic vision\footnote{Computer vision algorithms use these principles as a model for creating or analyzing depth with the help of two or more cameras (see \autoref{c:Math} for more details).}. The differences between those two images stimulate different neurons and is the cause of the following depth cue (\cite[p.232 et seqq.]{Goldstein.2015} and \cite[p.36 et seqq.]{Hottong.2009}): 
-	\begin{description}
-	\item [Binocular (retinal) disparity,\index{Depth cues!Binocular disparity}]\hfill \\ also called \textbf{stereopsis}\index{Depth cues!Stereopsis} or \textbf{binocular parallax}.
-	\end{description}
-With our two eyes we see an object from two slightly different angles, with which we can triangulate and measure the distance of it.  In \autoref{fig:binoDisparity} a focused object F gets projected as Fl and Fr on the respective \textit{Fovea centralis}\index{Fovea centralis} of the retinas.
-	%\item [Convergence\index{Depth cues!Convergence}]\hfill \\
-	%\item [Shadow Stereopsis]
-   
-\end{description} 
-
-\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.6\textwidth]{figures/Disparity}
-		\caption[bla]{bla}
-		\label{fig:binoDisparity}
-\end{figure}
-
-\todo{better graphic!!!}
-
-\todo{Of these various cues, only convergence, accommodation and familiar size provide absolute distance information. All other cues are relative }
-
+\item [iii Binocular or stereoscopic depth cues\index{Depth cues!Binocular depth cues}]\hfill \\ Stereoscopic depth cues are stimuli for which we need both eyes to experience depth of field. They mainly take the differences between the right and the left image seen by our eyes into account, which makes the interpupillary distance the bases of the stereoscopic vision\footnote{Computer vision algorithms use these principles as a model for creating or analyzing depth with the help of two or more cameras (see \autoref{c:Math} for more details).}.
+\end{description}

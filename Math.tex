@@ -1,3 +1,4 @@
+\label{c:Math}
 Games and other virtual applications are based on mathematical models and often times need to be calculated in real-time on a computer system. The most common operations and algorithms for capturing and reconstructing 3-D models involve vectors and matrices, which are also the main concepts the MATLAB programming language is built on. Other commonly used branches of mathematics in computer vision are trigonometry, algebra, statistics and calculus (\cite[p.165]{Gregory.2014}).
 
 The following sections shall introduce the mathematical backgrounds of some of the most important algorithms in computer vision. For this, the basic 2-D and 3-D primitives in combination with the 3-D to 2-D projection need to be discussed first. Mathematical problems in multiple view geometry can often be broken down into 2-D space problems. Readers who have already studied computer graphics can skip the basic chapters. The explanations shall only serve as an overview and summary of the topics (\cite[p.29]{Szeliski.2011} and (\cite[p.165 et seq.]{Gregory.2014}).
@@ -42,7 +43,7 @@ Note that the \textit{points at infinity} in 3-D space form the \textit{plane at
 As stated above, a point is represented with its coordinates in a $n$-dimensional space, whereas in computer vision $n$ usually has the value $2$ or $3$. Hence, coordinate systems\index{Coordinate systems} play an important role in computer vision tools. While the \textit{Cartesian coordinate system} is the most commonly used coordinate system in the field, it is certainly not the only one. The following list will introduce three important coordinate systems, which use different concepts: (\cite[p.166 et seq.]{Gregory.2014}.  
 \begin{enumerate}[i]
 \item \textit{Cartesian coordinate systems}\index{Coordinate systems!Cartesian coordinate system}: Two or three fixed perpendicular axis which form the 2-D or 3-D space. The points are represented by $(P_x,P_y)$ or $(P_x,P_y,P_z)$ and an illustration can be seen in \autoref{fig:CoordinateSys}.  
-\item \textit{Cylindrical coordinate systems}\index{Coordinate systems!Cylindrical coordinate system}: A system with a vertical axis $h$, a radial axis $r$ and the yaw angle $\Theta$. The points are represented by $(P_h,P_r,P_\Theta)$
+\item \textit{Cylindrical coordinate systems}\index{Coordinate systems!Cylindrical coordinate system}: A system with a vertical axis $h$, a radial axis $r$ and the yaw angle $\Theta$. The points are represented by $(P_h,P_r,P_\Theta)$.
 \item \textit{Spherical coordinate systems}\index{Coordinate systems!Spherical coordinate system}: A system specified by the radial distance $r$ of a point from the origin, the yaw angle $\Theta$ and a pitch angle $\phi$. Thus, a point is represented by $(P_r,P_\phi,P_\Theta)$.
 \end{enumerate}
 
@@ -197,17 +198,15 @@ In combination with \autoref{eq:princPtShort} this leads to the general mapping 
 \end{equation}
 
 with $\mathbf{X}$ now written in world coordinates, $K$ representing the \textit{internal camera parameters} and $R$ and $\tilde{C}$ representing the \textit{external camera parameters}\index{Extrinsic camera parameters} giving a projective camera 11 independent transformation parameters (\cite[p.156 et seq.]{Hartley.2011} and \cite[p.274]{Luhmann.2014}. 
-\todo{extrinsics, intrinsics --> compare with matlab}
 
 \note{For computer vision the Euclidean space $\mathbb{R}^n$ is problematic in many ways. Parallel lines meet \enquote{at infinity}, which is merely a model but typically all points are equal in the real world - there is no origin. Euclidean as well as affine transformations \enquote{preserve}\footnote{Points at infinity remain points at infinity even after computations.} points at infinity, making them different. For convenience, computer vision uses the projective space $\mathbb{P}^n$ to map 3-D objects to 2-D images. This is achieved by extending the Euclidean space with a line (or a plane) at infinity. Now points at infinity are not any different than other points and they are projected to other points with projective transformations. A projective camera therefore is a map from $\mathbb{P}^3$ to $\mathbb{P}^2$. However, it is still important to remember that cameras are Euclidean devices (\cite[p.1 et seqq. and 165]{Hartley.2011}).}
 
-\todo{spell-check from here}\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Epipolar and Two-View Geometry}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-One way to recover 3-D structure is to use the data of two (or multiple) camera views to search for corresponding points in image planes to calculate the absolute position of these points in world space. This section will cover the topic of \textit{epipolar geometry}\index{Epipolar geometry} which describes the intrinsic projective relationship between two views. Those two views can be either taken with two cameras simultaneously or with only one camera sequentially, which is geometrically equivalent. Both views have their own camera matrix $P,P'$ and their own sets of image points $\mathbf{x}=P\mathbf{X}$ and $\mathbf{x'}=P'\mathbf{X}$, whereas $\mathbf{x}$ and $\mathbf{x'}$ are called \textit{corresponding points}\index{Corresponding points} since they represent the same 3-D world point $\mathbf{X}$ just from different viewing perspectives (\cite[p.238]{Hartley.2011}).
+One way to recover 3-D structure is to use the data of two (or multiple) camera views to search for corresponding points in image planes to calculate the absolute position of these points in world space. This section will cover the topic of \textit{epipolar geometry}\index{Epipolar geometry} which describes the intrinsic projective relationship between two views. Those two views can be captured with two cameras simultaneously or with a single camera sequentially, which is geometrically equivalent. Both views have their own camera matrix $P,P'$ and their own sets of image points $\mathbf{x}=P\mathbf{X}$ and $\mathbf{x'}=P'\mathbf{X}$, whereas $\mathbf{x}$ and $\mathbf{x'}$ are called \textit{corresponding points}\index{Corresponding points} since they represent the same 3-D world point $\mathbf{X}$ just from different viewing perspectives (\cite[p.238]{Hartley.2011}).
 
-The in this chapter discussed concepts can address the following issues (freely adapted from \cite[p.238]{Hartley.2011}):
+The concepts discussed in this chapter can address the following issues (freely adapted from \cite[p.238]{Hartley.2011}):
 \begin{enumerate}[i]
 \item \textbf{Correspondences geometry:} Retrieving the image point $\mathbf{x'}$ with the given corresponding image point $\mathbf{x}$.
 \item \textbf{Camera geometry:} Retrieving the camera matrices $P$ and $P'$ with the given set of corresponding image points. 
@@ -222,9 +221,9 @@ The in this chapter discussed concepts can address the following issues (freely 
 		\label{fig:Epipolar}
 \end{figure}
 
-First, the structure of the relationship between the two views shall be defined (\autoref{fig:Epipolar} illustrates the entities involved). The two \textit{camera centers} $C$ and $C'$ are connected through the \textit{baseline}\index{Baseline}, which also defines the axis of a pencil of image planes\footnote{The word \textit{pencil} means here a family of geometric objects with certain common properties, such as common lines, etc.}. A \textit{3-D world point} $X$ gets projected onto the two image planes as the points $x$ in the first camera view and as $x'$ in the second.  $X$, $x$ and $x'$ are \textit{coplanar} - they lie in the plane $\pi$. Most importantly, the rays back-projected from the two image points, intersecting in $X$ also lie in $\pi$. This means that the plane $\pi$ can be defined by the baseline and the ray from $x$. Going further, $x'$ then needs to lie on $l'$, which is the image in the second view of the back-projected ray from $x$ in the first view. This line is called \textit{epipolar line}\index{Epipolar line}, which corresponds to $x$ (\cite[p.239 et seq.]{Hartley.2011})\footnote{Vice versa, there is an epipolar line $l$ in the first image corresponding to $x'$.}.
+First, the structure of the relationship between the two views shall be defined (\autoref{fig:Epipolar} illustrates the entities involved). The two \textit{camera centers} $C$ and $C'$ are connected through the \textit{baseline}\index{Baseline}, which also defines the axis of a pencil of image planes\footnote{The word \textit{pencil} means here a family of geometric objects with certain common properties, such as common lines, etc.}. A \textit{3-D world point} $X$ gets projected onto the two image planes as the points $x$ in the first camera view and as $x'$ in the second.  $X$, $x$ and $x'$ are \textit{coplanar} - they lie in the plane $\pi$. Most importantly, the rays back-projected from the two image points, intersecting in $X$ also lie in $\pi$. This means that the plane $\pi$ can be defined by the baseline and the ray from $x$. Going further, $x'$ then needs to lie on $l'$, which is the image in the second view of the back-projected ray from $x$ in the first view. This line is called the \textit{epipolar line}\index{Epipolar line}, which corresponds to $x$ (\cite[p.239 et seq.]{Hartley.2011})\footnote{Vice versa, there is an epipolar line $l$ in the first image corresponding to $x'$.}.
 
-Other entities involved are the \textit{epipoles}\index{Epipole}, which are the points of intersection of the baseline (joined camera centers) with the image planes: the epipole $e$ is the image in the first view of camera center $C'$ and vice versa $e'$ in the second view is the image of $C$. With different world points $X$ the corresponding epipolar planes \enquote{rotate} about the baseline building a set (a pencil) of many epipolar planes with their epipolar lines (as shown in \autoref{fig:EpiPlanes}). All these epipolar lines intersect at the epipole.
+Other entities involved are the \textit{epipoles}\index{Epipole}, which are the points of intersection of the baseline (joined camera centers) with the image planes: the epipole $e$ is the image in the first view of camera center $C'$ and vice versa $e'$ in the second view is the image of $C$. With different world points $X$ the corresponding epipolar planes \enquote{rotate} about the baseline, building a set (a pencil) of many epipolar planes with their epipolar lines (as shown in \autoref{fig:EpiPlanes}). All these epipolar lines intersect at the epipole.
 
 \begin{figure}[htbp]
 		\centering
@@ -235,9 +234,9 @@ Other entities involved are the \textit{epipoles}\index{Epipole}, which are the 
 
 \subsection{Fundamental and Essential Matrix}
 \index{Essential matrix}\index{Fundamental matrix}
-The concept explained above can be represented algebraically as well - with the so called \textit{fundamental matrix}. The fundamental matrix can be derived in many ways, for the following derivation the projective geometry (see \autoref{ssec:projCam} as well as the epipolar geometry is needed. 
+The concept explained above can be represented algebraically as well - with the so called \textit{fundamental matrix}. The fundamental matrix can be derived in many ways, for the following derivation the projective geometry (see \autoref{ssec:projCam}) as well as the epipolar geometry is needed. 
 
-\note{It is important to clarify in which direction the rotation is interpreted, namely which camera view gets multiplied first or which coordinate system is used as a basis. The results are equivalent but differ in their appearance. In common literature there is no standardized order which makes it slightly difficult to compare different results with each other. One has to choose an order and should stick with it. All values are then only to be interpreted relatively to the chosen order of camera pairs.}
+\note{It is important to clarify in which direction the rotation is interpreted, namely which camera view gets multiplied first or which coordinate system is used as a basis. The results are equivalent but differ in their appearance. In common literature there is no standardized order which makes it slightly difficult to compare different results with each other. One has to choose an order and stick with it. All values are then only to be interpreted relatively to the chosen order of camera pairs.}
 
 As mentioned above, each camera has its own projection matrix. Using parts of \autoref{eq:pinholeMapping} the two projection matrices can be defined as (\cite[p.309]{Luhmann.2014}):
 \begin{equation}
@@ -246,7 +245,7 @@ As mentioned above, each camera has its own projection matrix. Using parts of \a
  P'=K'R'[I | -b]
 \end{equation}
 
-with the rotation matrices $R$ and $R'$, the calibration matrices $K$ and $K'$ and the base vector $b$. As already stated above, the corresponding image point $\mathbf{x'}$ lies on the epipolar line $l$. The map $\mathbf{x}\mapsto l'$ can then be defined by the fundamental matrix $F$. The fundamental matrix $F$ is a  homogeneous $3\times 3$ matrix which can be described with 8 degrees of freedom. It stores the relative orientation data, such as the interior orientation. It satisfies the following equation (taken from \cite[p.245 et seq.]{Hartley.2011}, \cite[p.2]{Loop.2001} and \cite[p.310]{Luhmann.2014})\footnote{Note: \cite{Luhmann.2014} actually defines it the other way around: $\mathbf{x}^T F \mathbf{x'} =0$. For the sake of clarity, the following euqations are all based on the order presented by \cite{Hartley.2011}. To achieve the respectively other  result one has to \textit{transpose} the fundamental matrix, which changes the order of the camera pair.}: 
+with the rotation matrices $R$ and $R'$, the calibration matrices $K$ and $K'$ and the base vector $b$. As already stated above, the corresponding image point $\mathbf{x'}$ lies on the epipolar line $l$. The map $\mathbf{x}\mapsto l'$ can then be defined by the fundamental matrix $F$. The fundamental matrix $F$ is a  homogeneous $3\times 3$ matrix which can be described with 8 degrees of freedom. It stores the relative orientation data, such as the interior orientation. It satisfies the following equation (taken from \cite[p.245 et seq.]{Hartley.2011}, \cite[p.2]{Loop.2001} and \cite[p.310]{Luhmann.2014})\footnote{Note: \cite{Luhmann.2014} actually defines it the other way around: $\mathbf{x}^T F \mathbf{x'} =0$. For the sake of clarity, the following euqations are all based on the order presented by \cite{Hartley.2011}. To achieve the other  result one has to \textit{transpose} the fundamental matrix, which changes the order of the camera pair.}: 
 
 \begin{equation}
  \mathbf{x'}^T F \mathbf{x}=0
@@ -269,14 +268,19 @@ For the \textit{epipolar lines}\index{Epipolar line} the following equations can
 \end{equation}
 
 Since all epipolar lines intersect at the \textit{epipoles}\index{Epipole}, these two points can be derived from \autoref{eq:epiLineL} and \autoref{eq:epiLineL2} respectively:
+\begin{equation}
+ Fe = 0
+ \qquad
+ F^T e' = 0\label{eq:epipoles}
+\end{equation}
 
-\note{To sum it up, the fundamental matrix $F$ describes the relationship between the camera $P$ and a second camera $P'$ - whichever cameras are associated as the first and the second camera is up to the programmer. $F^T$ then describes the opposite order $P',P$ (\cite[p.245]{Hartley.2011}.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% todos
-\todo{absolute orientation --> p.310 Luhmann}
-\todo{epipolar and essential matrix}\\
-\todo{how many points are needed fundamental vs. essential --> p.310 luhman}\\
-\enquote{In der Theorie benötigt der 8-Punkt-Algorithmus mindestens acht korrespondierende Punkte für die Berechnung der Fundamental-Matrix. Allerdings wird dabei eine hohe Genauigkeit der Werte vorausgesetzt. Bei einer manuellen Bestimmung der Punkte, hat es sich als sinnvoll herausgestellt, mehr als acht Korrespondezen zu wählen.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% /todos
+\note{To sum it up, the fundamental matrix $F$ describes the relationship between the camera $P$ and a second camera $P'$ - whichever cameras are designated as the first and the second camera is up to the programmer. $F^T$ then describes the opposite order $P',P$ (\cite[p.245]{Hartley.2011}.}
+
+The \textit{essential matrix}\index{Essential matrix} can be used for a calibrated camera system (if the camera calibration matrix $K$ is already known). The essential matrix can be seen as a specialization of the fundamental matrix and the following relationship between both can be formed (\cite[p.310]{Luhmann.2014} and \cite[p.257]{Hartley.2011}): 
+
+\begin{equation}
+ E = K'^T FK\label{eq:essentialMatrix}
+\end{equation}
 
 With this computed geometry the relative pose and calibration for a pair of cameras in world space is known. The epipolar lines corresponding to a pixel in one image can now be used to find the corresponding pixel in the second view. For this, different corresponding algorithms can be used, such as \textit{optical flow}. Due to the computed epipolar geometry, the corresponding points only need to be searched along the epipolar lines. To speed up the search, the image pairs can be \textit{rectified} first (\cite[p.472 et seq.]{Szeliski.2011}).
 
@@ -285,11 +289,11 @@ By \textit{rectifying}\index{Rectification} image pairs corresponding horizontal
 
 \note{Although image rectification works the best for cameras which are standing next to each other, it can still be achieved in other scenarios as well. However, the input images should not be too verged and can not have too big of a size difference. Rectification is not a must and there are other methods to make the search for corresponding points easier, e.g. \textit{plane sweep}\index{Plane sweep}. In general, rectifying an arbitrary collection of images with non-collinear optical centers simultaneously is not possible (\cite[p.472 et seq.]{Szeliski.2011}).}
 
-In rectification the pixel coordinates of the image pairs get transformed into other pixel coordinates with the help of 2-D projective transformations (\textit{homographies}). This is usually achieved by first rotating both cameras so that their viewing directions are perpendicular to their \textit{baseline}. Then, the cameras' \textit{up vectors} have to be made perpendicular to the camera center line. If the focal lengths are different, the images then need to re-scaled, magnifying smaller images. \autoref{fig:Rectify} illustrates possible rectification steps (\cite[p.1]{Loop.2001}, \cite[p.473]{Szeliski.2011} and \cite[p.436]{Luhmann.2014}).
+During rectification the pixel coordinates of the image pairs are transformed into other pixel coordinates with the help of 2-D projective transformations (\textit{homographies}). This is usually achieved by first rotating both cameras so that their viewing directions are perpendicular to their \textit{baseline}. Then, the cameras' \textit{up vectors} have to be made perpendicular to the camera center line. If the focal lengths are different, the images then need to re-scaled, magnifying smaller images. \autoref{fig:Rectify} illustrates possible rectification steps (\cite[p.1]{Loop.2001}, \cite[p.473]{Szeliski.2011} and \cite[p.436]{Luhmann.2014}).
 
 Since the process of rectification is a science in its own, the author would like to suggest \cite{Loop.2001} as further readings for full details of this procedure.
 
-The \textit{standard rectified geometry} leads to the following \enquote{simple inverse relationship} between disparities\index{Disparity} $d$ and 3-D depth values\index{Depth value Z} $Z$ (\cite[p.473]{Szeliski.2011}:
+The \textit{standard rectified geometry} leads to the following \enquote{simple inverse relationship} between disparities\index{Disparity} $d$ and 3-D depth values\index{Depth value Z} $Z$ (\cite[p.473]{Szeliski.2011}):
 
 \begin{equation}
  d = f \frac{B}{Z} \label{eq:disparity}
@@ -305,27 +309,11 @@ with the \textit{focal length} $f$ (in pixels), baseline $B$ and
 \end{equation}
 for the computation of corresponding pixel coordinates.
 
-With this the so called \textit{disparity map}\index{Disparity map} $d(x,y)$ can be estimated. The term \textit{disparity} is here used to describe the difference in locations of corresponding points. The information of corresponding pixels at similar locations are stored in a \textit{disparity space image} (DSI)\index{Disparity space image DSI} $C(x,y,d)$ (\cite[p.473]{Szeliski.2011}).
+With this the so called \textit{disparity map}\index{Disparity map} $d(x,y)$ can be estimated. The term \textit{disparity} is used here to describe the difference in locations of corresponding points. The information for corresponding pixels at similar locations is stored in a \textit{disparity space image} (DSI)\index{Disparity space image DSI} $C(x,y,d)$ (\cite[p.473]{Szeliski.2011}).
 
 \begin{figure}[htbp]
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/Rectify}
-		\caption[Stages of the rectification algorithm]{Stages of the rectification algorithm proposed by \cite{Loop.2001}; \textbf{(a)} Original image pair with epipolar lines; \textbf{(b)} image transformation with projective mapping to make epipolar lines parallel to each other; \textbf{c} image transformation which rectifies the image pair - the epipolar lines are now horizontally aligned; \textbf{d} Final rectified image with reduced horizontal distortion    \textit{source:} \cite[p.12]{Loop.2001}).}
+		\caption[Stages of the rectification algorithm]{Stages of the rectification algorithm proposed by \cite{Loop.2001}; \textbf{(a)} Original image pair with epipolar lines; \textbf{(b)} image transformation with projective mapping to make epipolar lines parallel to each other; \textbf{c} image transformation which rectifies the image pair - the epipolar lines are now horizontally aligned; \textbf{d} Final rectified image with reduced horizontal distortion    (\textit{source:} \cite[p.12]{Loop.2001}).}
 		\label{fig:Rectify}
 \end{figure} 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% todos???
-\section{What else?}
--introduction to stereo correspondence (see \cite[p.468]{Szeliski.2011})\\
--(surface) reconstruction? --> next steps\\
-\todo{go to \cite[p.257 and 314]{Luhmann.2014} for a diagram!!!!}\\
-\todo{describe stereo matching vs. structure from motion}\\
-\todo{Triangulation?}
-
-\begin{itemize}
-\item use Markus Mann - StereoCameraCalibration.pdf !!!!
-\item and Camera Calibration for Stereo Vision.pdf
-\item Levenberg-Marquardt algorithm? \url{http://www.cs.ubc.ca/~lowe/papers/danm96.pdf}
-\item RANSAC?
-\end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% /todos
